@@ -28,13 +28,39 @@ function positionCheck(position_id){
     return val;
 }
 
+async function signTest(req,res){
+    res.clearCookie('accessToken',null,{
+        maxAge:0
+    });
+    let testToken = jwt.sign(
+        {
+            id: 1,
+            email: "test@naver.com",
+            name: "comMoney",
+            position: "사장"
+        },secretKey,
+        {
+            expiresIn: '10m',
+            algorithm: 'HS256',
+        }
+    )
+    res.cookie('accessToken', testToken);
+    res.send(testToken);    
+}
+
+async function verifyTest(req,res){
+    let token = req.cookies.accessToken;
+    let data = jwt.verify(token,secretKey);
+    res.send(data)
+}
+
 async function signIn(req,res){
     const {email,password} = req.body
     try{
         let user = await userService.logInUser(email);
-        let position = positionCheck(user.position_id);
         const compare = bcrypt.compareSync(password,user.password);
         if(compare){
+            let position = positionCheck(user.position_id);
             const jwtToken = jwt.sign(
                 {
                     userId:user.id,
@@ -153,7 +179,8 @@ async function getUserInfo(req,res){
 }
 
 module.exports={
-    // test:test,
+    signTest:signTest,
+    verifyTest:verifyTest,
     signIn:signIn,
     signOut:signOut,
     getUser:getUser,
