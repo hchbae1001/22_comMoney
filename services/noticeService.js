@@ -36,15 +36,14 @@ async function insertNotice(title,text,user_id){
     }
 }
 
-async function updateNotice(title,text,user_id,id){
+async function updateNotice(title,text,id){
     try{
-        await models.user.update({
+        let data = await models.notice.update({
             title:title,
-            text:text,
-            user_id:user_id,
-            prime:0
+            text:text
         },{where:{id:id}
     });
+        console.log(data);
     }catch(err){
         console.log(err);
         throw Error(err);

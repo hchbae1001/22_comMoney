@@ -1,0 +1,15 @@
+<html>
+    <head>
+        <%-include('../main/header')%>
+    </head>
+    <body>
+        <form method="post" action="/notice/insert">
+            제목 = <input type="text" name ="title"><br>
+            내용 = <input type="textarea" name="text"><br>
+            <input type="submit" id="submit" value="Submit">
+        </form>
+    </body>
+    <footer>
+        <%-include('../main/footer')%>
+    </footer>
+</html>
