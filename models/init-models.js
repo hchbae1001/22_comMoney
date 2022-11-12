@@ -2,6 +2,7 @@ var DataTypes = require("sequelize").DataTypes;
 var _d_attendance = require("./d_attendance");
 var _dept = require("./dept");
 var _m_attendance = require("./m_attendance");
+var _notice = require("./notice");
 var _position = require("./position");
 var _user = require("./user");
 
@@ -9,6 +10,7 @@ function initModels(sequelize) {
   var d_attendance = _d_attendance(sequelize, DataTypes);
   var dept = _dept(sequelize, DataTypes);
   var m_attendance = _m_attendance(sequelize, DataTypes);
+  var notice = _notice(sequelize, DataTypes);
   var position = _position(sequelize, DataTypes);
   var user = _user(sequelize, DataTypes);
 
@@ -17,6 +19,7 @@ function initModels(sequelize) {
     d_attendance,
     dept,
     m_attendance,
+    notice,
     position,
     user,
   };

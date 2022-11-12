@@ -4,19 +4,23 @@ const userController = require('../controllers/userController');
 const verify = require('./jwtAuth').verifyToken;
 const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretkey').secretKey;
+const crawling = require('../controllers/crawlingController');
 /* GET home page. */
-router.get('/', function(req, res, next) {
+
+
+
+router.get('/', async function(req, res, next) {
+  let crawlingNews = await crawling.getSportNews();
+  console.log(crawlingNews);
   const token = req.cookies.accessToken;
   let Check;
   if(token){
     Check = jwt.verify(token,secretKey);
   }
-  
-  console.log(Check);
   if(Check){
-    res.render('index', { user:Check });
+    res.render('index', { user:Check, news:crawlingNews });
   }else{
-    res.render('index',{user:undefined});
+    res.render('index',{user:undefined, news:crawlingNews});
   }
   
 });
