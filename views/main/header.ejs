@@ -79,6 +79,8 @@
             <% if(user){ %>
                 Welcome <%= user.name%>!
                 <br>
+                <a href="/notice/list">공지 리스트</a>
+                <a href="/notice/insert">공지 작성</a>
                 <a href="/user/signOut">signOut</a>
                 <a href="/user/<%= user.id%>">status</a>
             <%}else{%>

@@ -1,0 +1,30 @@
+<html>
+    <head>
+        <%-include('../main/header')%>
+    </head>
+    <body>
+        <%= data.user_id%><br>
+        <%= user.id%>
+        <form method="post" action="/notice/<%= data.id%>?_method=patch">
+            제목 = <input type="text" name ="title" value="<%= data.title%>"><br>
+            내용 = <input type="textarea" name="text" value="<%= data.text%>"><br>
+            <input type="submit" id="submit" value="Submit">
+            <% if(data.user_id == user.id || (user.position == "인사" || user.position == "사장") ){ %>
+                <input type="button" value="delete" id="deleteButton">
+            <% } %>
+        </form>
+    </body>
+    <footer>
+        <script>
+            $('#deleteButton').click(function(){
+                var form = document.createElement("form");
+                form.setAttribute("user_id", "<%= data.user_id%>");
+                form.setAttribute("method", "POST");
+                form.setAttribute("action", "/notice/<%= data.id%>?_method=delete");
+                document.body.appendChild(form);
+                form.submit();
+            });
+        </script>
+        <%-include('../main/footer')%>
+    </footer>
+</html>

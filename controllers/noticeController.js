@@ -3,10 +3,13 @@ const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretkey').secretKey;
 
 async function getNotice(req,res){
+    let user = await getUserInfo(req);
     const {id} = req.params;
     try{
         let data = await noticeService.getNotice(id);
-        return res.render();
+        return res.render('notice/noticeDetail', {
+            data:data,user:user
+        });
     }catch(err){
         console.log(err);
         return res.status(400).json(err);
@@ -14,10 +17,12 @@ async function getNotice(req,res){
 }
 
 async function getNotices(req,res){
-
+    const user = await getUserInfo(req);
     try{
         let data = await noticeService.getNotices();
-        return res.render();
+        return res.render('notice/noticeList',{
+            data:data.rows, count:data.count,user:user
+        });
     }catch(err){
         console.log(err);
         return res.status(400).json(err);
@@ -25,12 +30,12 @@ async function getNotices(req,res){
 }
 
 async function insertNotice(req,res){
-    const user = getUserInfo(req);
+    const user = await getUserInfo(req);
     const {title, text} = req.body;
-
     try{
+        console.log(title,text,user.id);
         await noticeService.insertNotice(title,text,user.id)
-        return res.redirect('/notice');
+        return res.redirect('/');
     }catch(err){
         console.log(err);
         return res.status(400).json(err);
@@ -39,7 +44,7 @@ async function insertNotice(req,res){
 
 async function updateNotice(req,res){
     const {id} = req.params;
-    const user = getUserInfo(req);
+    const user = await getUserInfo(req);
     const {title, text} = req.body;
     try{
         if((id == user.id) || (user.position == "사장" || user.position == "인사")){
@@ -47,7 +52,7 @@ async function updateNotice(req,res){
         }else{
             console.log("inValid User");
         }
-        return res.redirect('/notice');
+        return res.redirect('/');
     }catch(err){
         console.log(err);
         return res.status(400).json(err);
@@ -56,14 +61,15 @@ async function updateNotice(req,res){
 
 async function deleteNotice(req,res){
     const {id} = req.params;
-    const user = getUserInfo(req);
+    const {user_id} = req.body;
+    const user = await getUserInfo(req);
     try{
-        if((id == user.id) || (user.position == "사장" || user.position == "인사")){
+        if((user_id == user.id) || (user.position == "사장" || user.position == "인사")){
             await noticeService.deleteNotice(id);
         }else{
             console.log("inValid User");
         }
-        return res.redirect('/notice');        
+        return res.redirect('/');        
     }catch(err){
         console.log(err);
         return res.status(400).json(err);
@@ -73,6 +79,7 @@ async function deleteNotice(req,res){
 async function getUserInfo(req){
     const token = req.cookies.accessToken;
     let data = await jwt.verify(token,secretKey);
+    console.log(data);
     return data;
 }
 

@@ -1,16 +1,15 @@
-<div>
-    <h5 class="my-3 border-bottom pb-2">질문등록</h5>
-    <form method="post" class="post-form my-3">
-        <div>
-            <label for="subject">제목</label>
-            <input type="text" class="form-control" name="subject" id="subject">
-        </div>
-        <div class="gorm-group">
-            <lable for="content">내용</lable>
-            <textarea class="form-control" name="content" id="content" rows="5"></textarea>
-        </div>
-
-        <br>
-        <button type="submit" class="btn btn-primary">저장하기</button>
-    </form>
-</div>
+<html>
+    <head>
+        <%-include('../main/header')%>
+    </head>
+    <body>
+        <form method="post" action="/notice/insert">
+            제목 = <input type="text" name ="title"><br>
+            내용 = <input type="textarea" name="text"><br>
+            <input type="submit" id="submit" value="Submit">
+        </form>
+    </body>
+    <footer>
+        <%-include('../main/footer')%>
+    </footer>
+</html>
