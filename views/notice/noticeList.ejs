@@ -1,0 +1,37 @@
+<html>
+    <head>
+        <%-include('../main/header')%>
+    </head>
+    <body>
+        <table>
+            <tr>
+                <td>
+                    id
+                </td>
+                <td>
+                    title
+                </td>
+                <td>
+                    user_id
+                </td>
+            </tr>
+            <% for(let i = 0 ; i < data.length; i ++){ %>
+                <tr>
+                    <td>
+                        <%= data[i].id%>
+                    </td>
+                    <td>
+                        <%= data[i].title%>
+                    </td>
+                    <td>
+                        <%= data[i].user_id%>
+                    </td>
+                </tr>
+            <% } %>
+        </table>
+
+    </body>
+    <footer>
+        <%-include('../main/footer')%>
+    </footer>
+</html>

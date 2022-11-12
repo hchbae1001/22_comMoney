@@ -11,7 +11,6 @@ const crawling = require('../controllers/crawlingController');
 
 router.get('/', async function(req, res, next) {
   let crawlingNews = await crawling.getSportNews();
-  console.log(crawlingNews);
   const token = req.cookies.accessToken;
   let Check;
   if(token){
