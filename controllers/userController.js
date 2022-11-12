@@ -28,34 +28,8 @@ function positionCheck(position_id){
     return val;
 }
 
-async function signTest(req,res){
-    res.clearCookie('accessToken',null,{
-        maxAge:0
-    });
-    let testToken = jwt.sign(
-        {
-            id: 1,
-            email: "test@naver.com",
-            name: "comMoney",
-            position: "사장"
-        },secretKey,
-        {
-            expiresIn: '10m',
-            algorithm: 'HS256',
-        }
-    )
-    res.cookie('accessToken', testToken);
-    res.send(testToken);    
-}
-
-async function verifyTest(req,res){
-    let token = req.cookies.accessToken;
-    let data = jwt.verify(token,secretKey);
-    res.send(data)
-}
-
 async function signIn(req,res){
-    const {email,password} = req.body
+    const {email,password} = req.body;
     try{
         let user = await userService.logInUser(email);
         const compare = bcrypt.compareSync(password,user.password);
@@ -63,7 +37,7 @@ async function signIn(req,res){
             let position = positionCheck(user.position_id);
             const jwtToken = jwt.sign(
                 {
-                    userId:user.id,
+                    id:user.id,
                     email:user.email,
                     name:user.name,
                     position:position
@@ -91,19 +65,19 @@ async function signOut(req,res){
         res.clearCookie('accessToken',null,{
             maxAge:0
         });
+        res.redirect('/');
     }catch(err){
-        console.log(err);
+        console.log(err); 
         return res.status(400).json(err);
     }
 }
 
 async function getUser(req,res){
-    const id = req.params;
+    const {id} = req.params;
+    let user = await getUserInfo(req);
     try{
         let data = await userService.getUser(id);
-        return res.render('user/detail',{
-            data:data
-        });
+        return res.render('user/userDetail', { user:user, data:data});
     }catch(err){
         console.log(err);
         return res.status(400).json(err);
@@ -111,7 +85,7 @@ async function getUser(req,res){
 }
 
 async function getUsers(req,res){
-    const user = getUserInfo(req,res);
+    let user = await getUserInfo(req);
     try{
         if(user.position == "인사" || user.position == "사장"){
             let data = await userService.getUsers();
@@ -126,10 +100,10 @@ async function getUsers(req,res){
 }
 
 async function insertUser(req,res){
-    const {email, password, name, position_id, dept_id, memo} = req.body;
+    const {email,password,name,position_id, dept_id} = req.body;
     try{
         const encryptedPW = bcrypt.hashSync(password, 10);
-        await userService.insertUser(email, encryptedPW, name, position_id, dept_id, memo);
+        let data = await userService.insertUser(email, encryptedPW, name, position_id, dept_id);
         return res.redirect('/');
     }catch(err){
         console.log(err);
@@ -140,7 +114,7 @@ async function insertUser(req,res){
 async function updateUser(req,res){
     const {email, password, name, position_id, dept_id, memo} = req.body;
     const {id} = req.params;
-    const user = getUserInfo(req,res);
+    let user = await getUserInfo(req);
     try{
         const encryptedPW = bcrypt.hashSync(password, 10);
         if(user.id == id){
@@ -161,7 +135,7 @@ async function updateUser(req,res){
 
 async function deleteUser(req,res){
     const {id} = req.params;
-    const user = getUserInfo(req,res);
+    let user = await getUserInfo(req);
     try{
         if(user.position == "인사" || user.position == "사장");
         await userService.deleteUser(id);
@@ -172,10 +146,38 @@ async function deleteUser(req,res){
     }
 }
 
-async function getUserInfo(req,res){
+async function getUserInfo(req){
     const token = req.cookies.accessToken;
     let data = await jwt.verify(token,secretKey);
     return data;
+}
+
+async function signTest(req,res){
+    res.clearCookie('accessToken',null,{
+        maxAge:0
+    });
+    let testToken = jwt.sign(
+        {
+            id: 1,
+            email: "test@naver.com",
+            name: "comMoney",
+            position: "사장"
+        },secretKey,
+        {
+            expiresIn: '5s',
+            algorithm: 'HS256',
+        }
+    )
+    res.cookie('accessToken', testToken);
+    res.send(testToken);    
+}
+
+async function verifyTest(req,res){
+    let token = req.cookies.accessToken;
+    let data = jwt.verify(token,secretKey);
+    //string
+    console.log(typeof(data.position));
+    res.send(data.position)
 }
 
 module.exports={

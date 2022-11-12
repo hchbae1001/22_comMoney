@@ -40,7 +40,6 @@ async function insertUser(email,password,name,position_id,dept_id,memo){
             email:email,
             password:password,
             name:name,
-            phone:phone,
             position_id:position_id,
             dept_id:dept_id,
             memo:memo
