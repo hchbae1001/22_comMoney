@@ -1,5 +1,6 @@
 <html>
-    <%-include('main/header')%>
+    <!-- <%-include('main/header')%> 중복됨 수정 필요 -->
+    <%-include('main/nav')%>
     <body>
         <div class="row">
 
@@ -7,7 +8,7 @@
             <div class="col-xl-3 col-md-6 mb-4">
                 <div class="card border-left-primary shadow h-100 py-2">
                     <!-- <div class="image_area">
-                        <img src="<%=news[0].imgUrl%>" width="190" height="95">
+                        <img src="<%= news[0].imgUrl%>" width="190" height="95">
                     </div> -->
                     <div class="card-body">
                         <div class="row no-gutters align-items-center">
@@ -93,5 +94,21 @@
             </div>
         </div>
     </body>
+
+
+    <!-- 공지사항 게시글 등록 폼 -->
+    <div class="row">
+        <button><a href="notice/noticeInsert.ejs">등록</button>
+    </div>
+
+
+
+
+
+
+
+    
+
+    <%-include('notice/noticeInsert)%>
     <%-include('main/footer')%>
 </html>
