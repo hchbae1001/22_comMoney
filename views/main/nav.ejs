@@ -1,0 +1,188 @@
+<nav class="navbar navbar-expand-sm navbar-light bg-light mb-3">
+    <div class="container">
+      <div class="navbar-brand"><a href="/" class="nav-link">ComMoney</a></div>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav">
+
+            <!-- 로그인 확인 후 
+          <li class="nav-item"><a href="/home/about" class="nav-link">출퇴근</a></li>
+          -->
+          <li class="nav-item"><a href="/about" class="nav-link">출퇴근</a></li>
+          <li class="nav-item"><a href="../home/about" class="nav-link">마이페이지</a></li>
+        </ul>
+        <ul>
+            <script type="text/javascript" src="/js/scripts.js"></script>
+            <script type="text/javascript" src="/jQuery/jquery.min.js"></script>
+            <script type="text/javascript" src="/bootStrap/js/bootstrap.min.js"></script>
+            <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+                <style>
+                    .bd-placeholder-img {
+                    font-size: 1.125rem;
+                    text-anchor: middle;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    user-select: none;
+                    }
+            
+                    @media (min-width: 768px) {
+                    .bd-placeholder-img-lg {
+                        font-size: 3.5rem;
+                    }
+                    }
+            
+                    .b-example-divider {
+                    height: 3rem;
+                    background-color: rgba(0, 0, 0, .1);
+                    border: solid rgba(0, 0, 0, .15);
+                    border-width: 1px 0;
+                    box-shadow: inset 0 .5em 1.5em rgba(0, 0, 0, .1), inset 0 .125em .5em rgba(0, 0, 0, .15);
+                    }
+            
+                    .b-example-vr {
+                    flex-shrink: 0;
+                    width: 1.5rem;
+                    height: 100vh;
+                    }
+            
+                    .bi {
+                    vertical-align: -.125em;
+                    fill: currentColor;
+                    }
+            
+                    .nav-scroller {
+                    position: relative;
+                    z-index: 2;
+                    height: 2.75rem;
+                    overflow-y: hidden;
+                    }
+            
+                    .nav-scroller .nav {
+                    display: flex;
+                    flex-wrap: nowrap;
+                    padding-bottom: 1rem;
+                    margin-top: -1px;
+                    overflow-x: auto;
+                    text-align: center;
+                    white-space: nowrap;
+                    -webkit-overflow-scrolling: touch;
+                    }
+
+                    /* style for modal */
+                    .modal-sheet .modal-dialog {
+                        width: 380px;
+                        transition: bottom .75s ease-in-out;
+                    }
+                    .modal-sheet .modal-footer {
+                        padding-bottom: 2rem;
+                    }
+
+                    .modal-alert .modal-dialog {
+                        width: 380px;
+                    }
+                </style>
+
+
+            <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
+                <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
+            </a>
+
+            <div class="col-md-5 text-end">
+                    <% if(user){ %>
+                        Welcome <%= user.name%>!
+                        <br>
+                        <a href="/user/signOut">signOut</a>
+                        <a href="/user/<%= user.id%>">status</a>
+                    <%}else{%>
+                        <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signInModal">Sign in</button>
+                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign-up</button>
+                    <%}%>
+
+                    
+                    <!-- <button type="button" class="btn btn-outline-primary me-2">Login</button> -->
+
+
+            </div>
+
+
+            <div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="/user/signIn" method="POST">
+                        <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Email :</label>
+                        <input type="text" name="email" class="form-control" id="recipient-name">
+                        </div> 
+                        <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Password :</label>
+                        <input type="password" class="form-control" id="message-text" name="password"></textarea>
+                        </div>
+
+                        <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Log In</button>
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+                </div>
+            </div>
+                
+            <div class="modal fade" id="signUpModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                    <form action="/user/insert" method="POST">
+                        <div class="mb-3">
+                        <label for="recipient-name" class="col-form-label">Email :</label>
+                        <input type="text" name="email" class="form-control" id="recipient-name">
+                        </div> 
+                        <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Password :</label>
+                        <input type="password" class="form-control" id="password" name="password" maxlength="20"></textarea>
+                        </div>
+
+                        <div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
+                        <div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
+
+                        <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Password Check:</label>
+                        <input type="password" class="form-control" id="password2" name="password2" maxlength="20"></textarea>
+                        </div>
+                        
+                        <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Phone Number :</label>
+                        <input type="text" class="form-control" id="message-text" name="number" maxlength="8"></textarea>
+                        </div>
+                        <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Name :</label>
+                        <input type="text" class="form-control" id="message-text" name="name" maxlength="10"></textarea>
+                        </div>
+                        <div class="mb-3">
+                        <label for="message-text" class="col-form-label">Phone :</label>
+                        <input type="text" class="form-control" id="message-text" name="phone" maxlength="11"></textarea>
+                        </div>
+                        <button id="submit" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign Up</button>
+                    </form>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+                </div>
+                </div>
+            </header>
+        </ul>
+      </div>
+        
+    </div>
+  </nav>
