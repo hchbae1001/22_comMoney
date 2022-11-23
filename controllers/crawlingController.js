@@ -13,7 +13,7 @@ async function getSportNews(){
         const $bodyList = $('div.today_section ul').children('li.today_item');
         $bodyList.each(function(i,elem){
             ulList[i] ={
-                imgUrl: $(this).find('img').attr('src'),
+                // imgUrl: $(this).find('img').attr('src'),
                 title: $(this).find('strong.title').text(),
                 url: news + $(this).find('a').attr('href'),
                 summary: $(this).find('p.news').text()

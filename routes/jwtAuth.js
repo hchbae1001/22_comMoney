@@ -9,6 +9,9 @@ async function verifyToken(req,res,next){
   }
   // 인증 실패 
   catch(error) {
+    res.clearCookie('accessToken',null,{
+      maxAge:0
+  });
     if (error.name === 'TokenExpireError') {
       return res.status(419).json({
         code: 419,

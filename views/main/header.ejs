@@ -123,8 +123,7 @@
                 <button type="button" class="btn btn-outline-primary"><a href="/user/signOut">sign out</a></button>
                 <button type="button" class="btn btn-outline-primary"><a href="/user/<%= user.id%>">status</a></button>
             <%}else{%>
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signInModal">Sign in</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign up</button>
+              <%-include('./signModal') %>
             <%}%>
 
             
@@ -205,29 +204,4 @@
           </div>
         </div>
       </div>
-   </header>
-  </div>
-
-      <script type="text/javascript">
-        $(function(){
-          
-            $("#alert-success").hide();
-            $("#alert-danger").hide();
-            $("#submit").hide();
-            $("input").keyup(function(){
-                var pwd1=$("#password").val();
-                var pwd2=$("#password2").val();
-                if(pwd1 != "" || pwd2 != ""){
-                    if(pwd1 == pwd2){
-                        $("#alert-success").show();
-                        $("#alert-danger").hide();
-                        $("#submit").show();
-                    }else{
-                        $("#alert-success").hide();
-                        $("#alert-danger").show();
-                        $("#submit").hide();
-                    }    
-                }
-            });
-        });
-    </script>
+      </header>
