@@ -47,8 +47,17 @@ async function signIn(req,res){
                     algorithm: 'HS256',
                 }
             )
+            // const refreshToken = jwt.sign(
+            //         {
+            //             id:user.id
+            //         },secretKey,
+            //         {
+            //             expiresIn: '1d',   
+            //         }
+            //     )
             console.log('access');
             res.cookie('accessToken',jwtToken);
+            // res.cookie('refreshToken', refreshToken);
             return res.redirect('/');
         }else{
             console.log('access denied');
@@ -63,6 +72,9 @@ async function signIn(req,res){
 async function signOut(req,res){    
     try{
         res.clearCookie('accessToken',null,{
+            maxAge:0
+        });
+        res.clearCookie('refreshToken',null,{
             maxAge:0
         });
         res.redirect('/');
@@ -119,7 +131,7 @@ async function updateUser(req,res){
         const encryptedPW = bcrypt.hashSync(password, 10);
         if(user.id == id){
             await userService.updateUser(email, encryptedPW, name, position_id, dept_id, memo);
-            return res.redirect('/');
+            return res.redirect('/user/signOut');
         }else if(user.position == "인사" || user.position == "사장"){
             await userService.updateUser(email, encryptedPW, name, position_id, dept_id, memo);
             return res.redirect('/user/list');
