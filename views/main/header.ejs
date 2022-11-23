@@ -70,28 +70,65 @@
             }
           </style>
 
+<div class="navbar-brand"><a href="/" class="nav-link">ComMoney</a></div>
 
-      <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">
-        <svg class="bi me-2" width="40" height="32" role="img" aria-label="Bootstrap"><use xlink:href="#bootstrap"/></svg>
-      </a>
+        <div class="row">
+              <% if(user){ %>
+                  Welcome <%= user.name%>!
 
-      <div class="col-md-5 text-end">
+                  <div class="col">
+                      <a href="/notice/list">공지사항</a>
+                  </div>
+
+                  <div class="col">
+                      <a href="/notice/insert">공지작성</a>
+                  </div>
+
+                  <div class="col">
+                      <a href="/about">출퇴근</a>
+                  </div>
+
+                  <div class="col">
+                      <a href="/..home/about">내 정보</a>
+                  </div>
+              <%}else{%>
+                  <div class="col-4">
+                    <a href="/notice/list">공지사항</a>
+                  </div>
+
+                  <div class="col">
+                    <a href="/about">sample1</a>
+                  </div>
+
+                  <div class="col">
+                    <a href="/..home/about">sample2</a>
+                  </div>
+                  <!-- <div class="row">
+
+                      <a href="/notice/list">공지 리스트</a>
+                      <a href="/about">sample1</a>
+                      <a href="/..home/about">sample2</a>
+
+                  </div> -->
+              <%}%>
+        </div>
+
+
+      
+
+    
+
+      <div class="row-md-5 text-end">
             <% if(user){ %>
-                Welcome <%= user.name%>!
-                <br>
-                <a href="/notice/list">공지 리스트</a>
-                <a href="/notice/insert">공지 작성</a>
-                <a href="/user/signOut">signOut</a>
-                <a href="/user/<%= user.id%>">status</a>
+                <button type="button" class="btn btn-outline-primary"><a href="/user/signOut">sign out</a></button>
+                <button type="button" class="btn btn-outline-primary"><a href="/user/<%= user.id%>">status</a></button>
             <%}else{%>
                 <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#signInModal">Sign in</button>
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign-up</button>
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign up</button>
             <%}%>
 
             
             <!-- <button type="button" class="btn btn-outline-primary me-2">Login</button> -->
-
-
       </div>
 
 
