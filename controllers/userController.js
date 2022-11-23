@@ -43,7 +43,7 @@ async function signIn(req,res){
                     position:position
                 },secretKey,
                 {
-                    expiresIn: '30m',
+                    expiresIn: '30m', // 30m -> 24h
                     algorithm: 'HS256',
                 }
             )
