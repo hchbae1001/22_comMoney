@@ -164,12 +164,12 @@ async function signTest(req,res){
             position: "사장"
         },secretKey,
         {
-            expiresIn: '5s',
+            expiresIn: '1h',
             algorithm: 'HS256',
         }
     )
     res.cookie('accessToken', testToken);
-    res.send(testToken);    
+    return res.redirect('/');
 }
 
 async function verifyTest(req,res){
