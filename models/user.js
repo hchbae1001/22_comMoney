@@ -8,27 +8,51 @@ module.exports = function(sequelize, DataTypes) {
       primaryKey: true
     },
     email: {
-      type: DataTypes.STRING(45),
-      allowNull: false
-    },
-    password: {
-      type: DataTypes.STRING(255),
-      allowNull: false
-    },
-    name: {
-      type: DataTypes.STRING(20),
+      type: DataTypes.CHAR(30),
       allowNull: true
     },
-    position_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    name: {
+      type: DataTypes.CHAR(20),
+      allowNull: true
     },
-    dept_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
+    nickName: {
+      type: DataTypes.CHAR(20),
+      allowNull: true
     },
-    memo: {
-      type: DataTypes.STRING(200),
+    password: {
+      type: DataTypes.CHAR(255),
+      allowNull: true
+    },
+    phone: {
+      type: DataTypes.CHAR(30),
+      allowNull: true
+    },
+    zip: {
+      type: DataTypes.INTEGER,
+      allowNull: true
+    },
+    addr1: {
+      type: DataTypes.CHAR(40),
+      allowNull: true
+    },
+    addr2: {
+      type: DataTypes.CHAR(40),
+      allowNull: true
+    },
+    position: {
+      type: DataTypes.CHAR(20),
+      allowNull: true
+    },
+    img: {
+      type: DataTypes.CHAR(255),
+      allowNull: true
+    },
+    dept: {
+      type: DataTypes.CHAR(20),
+      allowNull: true
+    },
+    auth: {
+      type: DataTypes.BOOLEAN,
       allowNull: true
     }
   }, {

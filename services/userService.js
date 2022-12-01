@@ -34,33 +34,48 @@ async function getUser(id){
     }
 }
 
-async function insertUser(email,password,name,position_id,dept_id,memo){
+async function insertUser(email,name,nickName,password,phone){
     try{
         await models.user.create({
             email:email,
-            password:password,
             name:name,
-            position_id:position_id,
-            dept_id:dept_id,
-            memo:memo
+            nickName:nickName,
+            password:password,
+            phone:phone,
+            position:"사원",
+            dept:"개발",
         });
     }catch(err){
         console.log(err);
         throw Error(err);
     }
 }
-//email과 비밀번호만 바뀜
-async function updateUser(id,email,password,position_id,dept_id,memo){
+async function updateUser(id,email,nickName,password,phone,position,dept,img,trans){
     console.log("contain pwd");
     try{
-        await models.user.update({
-            email:email,
-            password:password,
-            position_id:position_id,
-            dept_id:dept_id,
-            memo:memo
-        },{where:{id:id}
-    });
+        if(trans == 1){//비밀번호 변경시
+            await models.user.update({
+                email:email,
+                nickName:nickName,
+                password:password,
+                phone:phone,
+                position:position,
+                dept:dept,
+                img:img
+            },{where:{id:id}
+        });
+        }else{
+            await models.user.update({
+                email:email,
+                nickName:nickName,
+                phone:phone,
+                position:position,
+                dept:dept,
+                img:img
+            },{where:{id:id}
+        });
+        }
+
     }catch(err){
         console.log(err);
         throw Error(err);
