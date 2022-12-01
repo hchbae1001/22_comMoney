@@ -189,7 +189,60 @@
               });
             }, false);
           </script>
-          
+
+
+
+
+
+
+
+        <!-- 수정사항 -->
+
+        <form action="/user/insert?_method=patch" method="POST">
+
+
+
+            이메일 = <input type="email" name ="email" value="<%= data.email%>"><br>
+            비밀번호 = <input type="password" class="pwd" name="password"><br>
+            비밀번호 확인 = <input type="password" class="pwd" name="passwordCheck"><br>
+            이름 = <input type="text" name="name" value="<%= data.name%>"><br>
+
+            부서 =
+            <select name="dept_id"
+            <% if(user.position == "사장" || user.position == "인사"){ %>    
+                <%}else{%>
+                    disabled
+                <%}%>
+            >
+                <option value="0">경영</option>
+                <option value="1">인사</option>
+                <option value="2">개발</option>
+
+            </select><br>
+
+            직급 =
+                <select name="position_id"
+                    <% if(user.position == "사장" || user.position == "인사"){ %> 
+                        
+                    <%}else{%>
+                        disabled
+                    <%}%>
+                >
+                  <option value="0">사원</option>
+                  <option value="1">대리</option>
+                  <option value="2">과장</option>
+                  <option value="3">부장</option>
+                  <option value="4">인사</option>
+                <% if(user.position == "사장"){ %>
+                  <option value="5">사장</option>
+                <%}%>
+                </select><br>
+              
+             <% if((user.position == "인사" ) || (user.position == "사장")){ %>
+                
+            <%}%>
+            <input type="submit" id="submit" value="Submit">
+        </form>
     </body>
     <footer>
         <%-include('../main/footer') %>
