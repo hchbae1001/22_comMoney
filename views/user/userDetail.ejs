@@ -30,7 +30,7 @@
     </head>
     <%-include('../main/header') %>
     <body>
-
+      <form action="/user/<%=data.id%>?_method=patch" method="post">
         <div class="container">
             <div class="input-form-backgroud row">
               <div class="input-form col-md-12 mx-auto">
@@ -39,14 +39,14 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="name">이름</label>
-                      <input type="text" class="form-control" id="name" placeholder="" value="" required>
+                      <input type="text" class="form-control" name="name" id="name" placeholder="" value="<%=data.name%>" required>
                       <div class="invalid-feedback">
                         이름을 입력해주세요.
                       </div>
                     </div>
                     <div class="col-md-6 mb-3">
                       <label for="nickname">닉네임</label>
-                      <input type="text" class="form-control" id="nickname" placeholder="" value="" required>
+                      <input type="text" class="form-control" name="nickName" id="nickname" placeholder="" value="<%=data.nickName%>" required>
                       <div class="invalid-feedback">
                         별명을 입력해주세요.
                       </div>
@@ -55,7 +55,7 @@
         
                   <div class="mb-3">
                     <label for="email">이메일</label>
-                    <input type="email" class="form-control" id="email" placeholder="you@example.com" required>
+                    <input type="email" class="form-control" name="email" id="email" placeholder="you@example.com" required value="<%=data.email%>">
                     <div class="invalid-feedback">
                       이메일을 입력해주세요.
                     </div>
@@ -63,7 +63,7 @@
 
                   <div class="mb-3">
                     <label for="email">비밀번호</label>
-                    <input type="email" class="form-control" id="email" placeholder="비밀번호를 입력해주세요" required>
+                    <input type="password" class="form-control" id="pwd1" name="password" placeholder="비밀번호를 입력해주세요" required>
                     <div class="invalid-feedback">
                     비밀번호를 입력해주세요.
                     </div>
@@ -73,7 +73,7 @@
             
                   <div class="mb-3">
                     <label for="email">비밀번호 확인</label>
-                    <input type="email" class="form-control" id="email" placeholder="비밀번호를 입력해주세요" required>
+                    <input type="password" class="form-control" id="pwd2" placeholder="비밀번호를 입력해주세요" required>
                     <div class="invalid-feedback">
                     비밀번호를 입력해주세요.
                     </div>
@@ -86,12 +86,22 @@
                   <div class="row">
                     <div class="col-md-6 mb-3">
                       <label for="root">부서</label>
-                      <select class="custom-select d-block w-100" id="root">
-                        <option value=""></option>
-                        <option>인사</option>
-                        <option>경영</option>
-                        <option>재무</option>
-                        <option>개발</option>
+                      <select class="custom-select d-block w-100" id="dept" name="dept">
+                        <!-- <option value=""></option> -->
+                        <% 
+                        let dept = ['인사','경영','재무','개발'] 
+                        for(let i = 0; i < dept.length;i++){
+                      %>
+                        <option value="<%= dept[i]%>"
+                          <% if(data.dept == dept[i]){ %>
+                            selected
+                          <%}%>
+                          ><%=dept[i]%></option>
+                      <%}%>
+                        <!-- <option value="인사">인사</option>
+                        <option value="경영">경영</option>
+                        <option value="재무">재무</option>
+                        <option value="개발">개발</option> -->
                       </select>
                       <div class="invalid-feedback">
                         부서를 선택해주세요.
@@ -100,14 +110,25 @@
 
                     <div class="col-md-6 mb-3">
                       <label for="code">직급</label>
-                      <select class="custom-select d-block w-100" id="root">
-                        <option value=""></option>
-                        <option>사원</option>
-                        <option>대리</option>
-                        <option>과장</option>
-                        <option>부장</option>
-                        <option>인사</option>
-                        <option>사장</option>
+                      <select class="custom-select d-block w-100" id="position" name="position">
+
+                        <% 
+                          let position = ['사원','대리','과장','부장','인사','사장'] 
+                          for(let i = 0; i < position.length;i++){
+                        %>
+                          <option value="<%= position[i]%>"
+                            <% if(data.position == position[i]){ %>
+                              selected
+                            <%}%>
+                            ><%=position[i]%></option>
+                        <%}%>
+                        <!-- <option value=""></option> -->
+                        <!-- <option value="사원">사원</option>
+                        <option value="대리">대리</option>
+                        <option value="과장">과장</option>
+                        <option value="부장">부장</option>
+                        <option value="인사">인사</option>
+                        <option value="사장">사장</option> -->
                       </select>
                       <div class="invalid-feedback">
                         부서를 선택해주세요.
@@ -122,15 +143,37 @@
                     <label class="custom-control-label" for="aggrement">개인정보 수집 및 이용에 동의합니다.</label>
                   </div> -->
                   <div class="mb-4"></div>
-                  <button class="btn btn-primary btn-lg btn-block" type="submit" id="submit" value="Submit">변경 완료</button>
+                  <button id="userSubmit" class="btn btn-primary  btn-block" type="submit">변경 완료</button>
+                  <% if(user.position == '사장' || user.position == '인사'){ %>
+                    <button id="deleteButton" class="btn btn-primary  btn-block" type="submit">삭제</button>
+                  <% } %>
                 </form>
               </div>
             </div>
             <footer class="my-3 text-center text-small">
             </footer>
         </div>
-
+      </form>
           <script>
+            $('#userSubmit').click(function(){
+              let pwd1 = document.getElementById('pwd1').value;
+              let pwd2 = document.getElementById('pwd2').value;
+              if(pwd1 == pwd2){
+                return true;
+              }else{
+                alert('비밀번호 불일치');
+                return false;
+              }
+            });
+
+            $('#deleteButton').click(function(){
+                var form = document.createElement("form");
+                form.setAttribute("method", "POST");
+                form.setAttribute("action", "/user/<%= data.id%>?_method=delete");
+                document.body.appendChild(form);
+                form.submit();
+            });
+
             window.addEventListener('load', () => {
               const forms = document.getElementsByClassName('validation-form');
         
@@ -146,6 +189,59 @@
               });
             }, false);
           </script>
+
+
+
+
+
+
+
+        <!-- 수정사항 -->
+
+        <form action="/user/insert?_method=patch" method="POST">
+
+
+
+            이메일 = <input type="email" name ="email" value="<%= data.email%>"><br>
+            비밀번호 = <input type="password" class="pwd" name="password"><br>
+            비밀번호 확인 = <input type="password" class="pwd" name="passwordCheck"><br>
+            이름 = <input type="text" name="name" value="<%= data.name%>"><br>
+
+            부서 =
+            <select name="dept_id"
+            <% if(user.position == "사장" || user.position == "인사"){ %>    
+                <%}else{%>
+                    disabled
+                <%}%>
+            >
+                <option value="0">경영</option>
+                <option value="1">인사</option>
+                <option value="2">개발</option>
+
+            </select><br>
+
+            직급 =
+                <select name="position_id"
+                    <% if(user.position == "사장" || user.position == "인사"){ %> 
+                        
+                    <%}else{%>
+                        disabled
+                    <%}%>
+                >
+                  <option value="0">사원</option>
+                  <option value="1">대리</option>
+                  <option value="2">과장</option>
+                  <option value="3">부장</option>
+                  <option value="4">인사</option>
+                <% if(user.position == "사장"){ %>
+                  <option value="5">사장</option>
+                <%}%>
+                </select><br>
+              
+             <% if((user.position == "인사" ) || (user.position == "사장")){ %>
+                
+            <%}%>
+            <input type="submit" id="submit" value="Submit">
         </form>
     </body>
     <footer>

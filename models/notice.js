@@ -9,24 +9,28 @@ module.exports = function(sequelize, DataTypes) {
     },
     user_id: {
       type: DataTypes.INTEGER.UNSIGNED,
-      allowNull: true
+      allowNull: false,
+      references: {
+        model: 'user',
+        key: 'id'
+      }
     },
-    prime: {
-      type: DataTypes.INTEGER,
-      allowNull: true
-    },
-    title: {
-      type: DataTypes.CHAR(200),
+    subject: {
+      type: DataTypes.CHAR(50),
       allowNull: true
     },
     text: {
+      type: DataTypes.CHAR(255),
+      allowNull: true
+    },
+    img: {
       type: DataTypes.CHAR(255),
       allowNull: true
     }
   }, {
     sequelize,
     tableName: 'notice',
-    timestamps: true,
+    timestamps: false,
     indexes: [
       {
         name: "PRIMARY",
@@ -34,6 +38,13 @@ module.exports = function(sequelize, DataTypes) {
         using: "BTREE",
         fields: [
           { name: "id" },
+        ]
+      },
+      {
+        name: "notice_user",
+        using: "BTREE",
+        fields: [
+          { name: "user_id" },
         ]
       },
     ]
