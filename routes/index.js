@@ -12,7 +12,7 @@ const noticeService = require('../services/noticeService');
 
 router.get('/', async function(req, res, next) {
   let data = await noticeService.getNotices();
-  return res.send(data);
+  // return res.send(data);
   let crawlingNews = await crawling.getSportNews();
   const token = req.cookies.accessToken;
   let Check;

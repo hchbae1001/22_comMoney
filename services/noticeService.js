@@ -2,11 +2,7 @@ let models = require('../models');
 async function getNotices(){
     try{
         let data = await models.notice.findAndCountAll({
-            include:[
-                {
-                    model:user
-                }
-            ]
+
         });
         console.log(data);
         return data;

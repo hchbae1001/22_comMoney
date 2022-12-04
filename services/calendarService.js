@@ -1,7 +1,7 @@
 let models = require('../models');
 async function getCalendars(){
     try{
-        let data = await models.Calendar.findAndCountAll();
+        let data = await models.calendar.findAndCountAll();
         console.log(data);
         return data;
     }catch(err){
@@ -12,7 +12,7 @@ async function getCalendars(){
 
 async function getCalendar(id){
     try{
-        let data = await models.Calendar.findOne({
+        let data = await models.calendar.findOne({
             where:{id:id}
         });
         return data;
@@ -22,13 +22,14 @@ async function getCalendar(id){
     }
 }
 
-async function insertCalendar(subject,text,user_id){
+async function insertCalendar(user_id,user_name,date,subject,text){
     try{
-        await models.Calendar.create({
+        await models.calendar.create({
+            user_id:user_id,
+            user_name:user_name,
+            date:date,
             subject:subject,
             text:text,
-            user_id:user_id,
-            img:''
         });
     }catch(err){
         console.log(err);
@@ -38,7 +39,7 @@ async function insertCalendar(subject,text,user_id){
 
 async function updateCalendar(title,text,id){
     try{
-        let data = await models.Calendar.update({
+        let data = await models.calendar.update({
             title:title,
             text:text
         },{where:{id:id}
@@ -52,7 +53,7 @@ async function updateCalendar(title,text,id){
 
 async function deleteCalendar(id){
     try{
-        await models.Calendar.destroy({
+        await models.calendar.destroy({
             where:{id:id}
         });
     }catch(err){
