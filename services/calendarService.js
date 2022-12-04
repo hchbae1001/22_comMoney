@@ -1,13 +1,7 @@
 let models = require('../models');
-async function getNotices(){
+async function getCalendars(){
     try{
-        let data = await models.notice.findAndCountAll({
-            include:[
-                {
-                    model:user
-                }
-            ]
-        });
+        let data = await models.Calendar.findAndCountAll();
         console.log(data);
         return data;
     }catch(err){
@@ -16,9 +10,9 @@ async function getNotices(){
     }
 }
 
-async function getNotice(id){
+async function getCalendar(id){
     try{
-        let data = await models.notice.findOne({
+        let data = await models.Calendar.findOne({
             where:{id:id}
         });
         return data;
@@ -28,9 +22,9 @@ async function getNotice(id){
     }
 }
 
-async function insertNotice(subject,text,user_id){
+async function insertCalendar(subject,text,user_id){
     try{
-        await models.notice.create({
+        await models.Calendar.create({
             subject:subject,
             text:text,
             user_id:user_id,
@@ -42,9 +36,9 @@ async function insertNotice(subject,text,user_id){
     }
 }
 
-async function updateNotice(title,text,id){
+async function updateCalendar(title,text,id){
     try{
-        let data = await models.notice.update({
+        let data = await models.Calendar.update({
             title:title,
             text:text
         },{where:{id:id}
@@ -56,9 +50,9 @@ async function updateNotice(title,text,id){
     }
 }
 
-async function deleteNotice(id){
+async function deleteCalendar(id){
     try{
-        await models.notice.destroy({
+        await models.Calendar.destroy({
             where:{id:id}
         });
     }catch(err){
@@ -68,9 +62,9 @@ async function deleteNotice(id){
 }
 
 module.exports ={
-    deleteNotice:deleteNotice,
-    insertNotice:insertNotice,
-    updateNotice:updateNotice,
-    getNotice:getNotice,
-    getNotices:getNotices 
+    deleteCalendar:deleteCalendar,
+    insertCalendar:insertCalendar,
+    updateCalendar:updateCalendar,
+    getCalendar:getCalendar,
+    getCalendars:getCalendars 
 }
