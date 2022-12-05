@@ -6,18 +6,11 @@
     <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
 
 <div class="navbar-brand"><a href="/" class="nav-link">ComMoney</a></div>
-
         <div class="row">
               <% if(user){ %>
                   <h4>Welcome, <%= user.name%> 님!</h4>
               <%}%>
         </div>
-
-
-      
-
-    
-
       <div class="row-md-5 text-end">
             <% if(user){ %>
                 <button type="button" class="btn btn-outline-primary"><a href="/user/signOut">sign out</a></button>

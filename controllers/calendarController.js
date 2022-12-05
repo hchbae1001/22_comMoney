@@ -1,13 +1,13 @@
-const noticeService = require('../services/noticeService');
+const CalendarService = require('../services/calendarService');
 const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretkey').secretKey;
 
-async function getNotice(req,res){
+async function getCalendar(req,res){
     let user = await getUserInfo(req);
     const {id} = req.params;
     try{
-        let data = await noticeService.getNotice(id);
-        return res.render('notice/noticeDetail', {
+        let data = await CalendarService.getCalendar(id);
+        return res.render('Calendar/CalendarDetail', {
             data:data,user:user
         });
     }catch(err){
@@ -16,11 +16,11 @@ async function getNotice(req,res){
     }
 }
 
-async function getNotices(req,res){
+async function getCalendars(req,res){
     const user = await getUserInfo(req);
     try{
-        let data = await noticeService.getNotices();
-        return res.render('notice/noticeList',{
+        let data = await CalendarService.getCalendars();
+        return res.render('Calendar/CalendarList',{
             data:data.rows, count:data.count,user:user
         });
     }catch(err){
@@ -29,12 +29,12 @@ async function getNotices(req,res){
     }
 }
 
-async function insertNotice(req,res){
+async function insertCalendar(req,res){
     const user = await getUserInfo(req);
     const {subject, text} = req.body;
     try{
         console.log(subject,text,user.id);
-        await noticeService.insertNotice(subject,text,user.id)
+        await CalendarService.insertCalendar(subject,text,user.id)
         return res.redirect('/');
     }catch(err){
         console.log(err);
@@ -42,13 +42,13 @@ async function insertNotice(req,res){
     }
 }
 
-async function updateNotice(req,res){
+async function updateCalendar(req,res){
     const {id} = req.params;
     const user = await getUserInfo(req);
     const {title, text} = req.body;
     try{
         if((id == user.id) || (user.position == "사장" || user.position == "인사")){
-            await noticeService.updateNotice(title,text,id);
+            await CalendarService.updateCalendar(title,text,id);
         }else{
             console.log("inValid User");
         }
@@ -59,13 +59,13 @@ async function updateNotice(req,res){
     }
 }
 
-async function deleteNotice(req,res){
+async function deleteCalendar(req,res){
     const {id} = req.params;
     const {user_id} = req.body;
     const user = await getUserInfo(req);
     try{
         if((user_id == user.id) || (user.position == "사장" || user.position == "인사")){
-            await noticeService.deleteNotice(id);
+            await CalendarService.deleteCalendar(id);
         }else{
             console.log("inValid User");
         }
@@ -87,9 +87,9 @@ async function getUserInfo(req){
 
 
 module.exports={
-    getNotice:getNotice,
-    getNotices:getNotices,
-    insertNotice:insertNotice,
-    updateNotice:updateNotice,
-    deleteNotice:deleteNotice
+    getCalendar:getCalendar,
+    getCalendars:getCalendars,
+    insertCalendar:insertCalendar,
+    updateCalendar:updateCalendar,
+    deleteCalendar:deleteCalendar
 }

@@ -3,16 +3,24 @@
         <%-include('../main/header')%>
     </head>
     <body>
-        <%= data.user_id%><br>
-        <%= user.id%>
-        <form method="post" action="/notice/<%= data.id%>?_method=patch">
-            제목 = <input type="text" name ="title" value="<%= data.title%>"><br>
-            내용 = <input type="textarea" name="text" value="<%= data.text%>"><br>
-            <input type="submit" id="submit" value="Submit">
-            <% if(data.user_id == user.id || (user.position == "인사" || user.position == "사장") ){ %>
-                <input type="button" value="delete" id="deleteButton">
-            <% } %>
-        </form>
+        <div>
+            <h5 class="my-3 border-bottom pb-2">공지 수정</h5>
+            <form method="post" action="/notice/<%= data.id%>?_method=patch">
+                <div>
+                    <label for="subject">제목</label>
+                    <input type="text" class="form-control" name="subject" id="subject" value="<%= data.subject%>">
+                </div>
+                <div class="gorm-group">
+                    <lable for="content">내용</lable>
+                    <textarea class="form-control" name="text" id="content" rows="5"><%= data.text%></textarea>
+                </div>
+                <br>
+                <button type="submit" class="btn btn-primary">저장하기</button>
+                <% if(user.position == '사장' || user.position == '인사'){ %>
+                    <button id="deleteButton" class="btn btn-primary" type="submit">삭제</button>
+                  <% } %>
+            </form>
+        </div>
     </body>
     <footer>
         <script>
