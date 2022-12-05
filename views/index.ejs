@@ -6,8 +6,10 @@
         <div>
         <%-include('main/sideIndex')%>
         </div>
+        
+        <div style="margin-left:20%; margin-right:20%; padding:1px 16px; height:100%;">
 
-        <div style="margin-left:20%;padding:1px 16px;height:1000px;">
+            
 
 
 
@@ -23,7 +25,9 @@
                             <div class="row no-gutters align-items-center">
                                 <div class="col mr-2">
                                     <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        <a href="<%= news[i].url%>" target="_blank"><%= news[i].title%></a></div>
+                                        <a href="<%= news[i].url%>" target="_blank"><%= news[i].title%>
+                                        </a>
+                                    </div>
                                     <div class="h7 mb-0 font-weight-bold text-gray-800">
                                         <%= news[i].summary%>
                                     </div>
@@ -81,13 +85,8 @@
 
             <a href="/schedule/schedule>"></a>
             <!-- 이게 아니면 수정필요 -->
-
-
-
         </div>
-    </div>
-        
-
+        </div>
     </body>
         <%-include('main/footer')%>
 </html>
