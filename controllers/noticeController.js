@@ -33,8 +33,7 @@ async function insertNotice(req,res){
     const user = await getUserInfo(req);
     const {subject, text} = req.body;
     try{
-        console.log(subject,text,user.id);
-        await noticeService.insertNotice(subject,text,user.id)
+        await noticeService.insertNotice(subject,text,user.id,user.name,user.dept,user.position);
         return res.redirect('/');
     }catch(err){
         console.log(err);
@@ -45,10 +44,10 @@ async function insertNotice(req,res){
 async function updateNotice(req,res){
     const {id} = req.params;
     const user = await getUserInfo(req);
-    const {title, text} = req.body;
+    const {subject, text} = req.body;
     try{
         if((id == user.id) || (user.position == "사장" || user.position == "인사")){
-            await noticeService.updateNotice(title,text,id);
+            await noticeService.updateNotice(subject,text,id);
         }else{
             console.log("inValid User");
         }

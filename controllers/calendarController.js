@@ -1,4 +1,4 @@
-const CalendarService = require('../services/calendarService');
+const calendarService = require('../services/calendarService');
 const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretkey').secretKey;
 
@@ -6,7 +6,7 @@ async function getCalendar(req,res){
     let user = await getUserInfo(req);
     const {id} = req.params;
     try{
-        let data = await CalendarService.getCalendar(id);
+        let data = await calendarService.getCalendar(id);
         return res.render('Calendar/CalendarDetail', {
             data:data,user:user
         });
@@ -19,9 +19,9 @@ async function getCalendar(req,res){
 async function getCalendars(req,res){
     const user = await getUserInfo(req);
     try{
-        let data = await CalendarService.getCalendars();
-        return res.render('Calendar/CalendarList',{
-            data:data.rows, count:data.count,user:user
+        let data = await calendarService.getCalendars();
+        return res.render('calendar/calendarList',{
+            // data:data.rows, count:data.count,user:user 
         });
     }catch(err){
         console.log(err);
@@ -34,7 +34,7 @@ async function insertCalendar(req,res){
     const {subject, text} = req.body;
     try{
         console.log(subject,text,user.id);
-        await CalendarService.insertCalendar(subject,text,user.id)
+        await calendarService.insertCalendar(subject,text,user.id)
         return res.redirect('/');
     }catch(err){
         console.log(err);
@@ -48,7 +48,7 @@ async function updateCalendar(req,res){
     const {title, text} = req.body;
     try{
         if((id == user.id) || (user.position == "사장" || user.position == "인사")){
-            await CalendarService.updateCalendar(title,text,id);
+            await calendarService.updateCalendar(title,text,id);
         }else{
             console.log("inValid User");
         }
@@ -65,7 +65,7 @@ async function deleteCalendar(req,res){
     const user = await getUserInfo(req);
     try{
         if((user_id == user.id) || (user.position == "사장" || user.position == "인사")){
-            await CalendarService.deleteCalendar(id);
+            await calendarService.deleteCalendar(id);
         }else{
             console.log("inValid User");
         }

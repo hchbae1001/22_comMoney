@@ -1,9 +1,7 @@
 let models = require('../models');
 async function getNotices(){
     try{
-        let data = await models.notice.findAndCountAll({
-
-        });
+        let data = await models.notice.findAndCountAll();
         console.log(data);
         return data;
     }catch(err){
@@ -24,12 +22,15 @@ async function getNotice(id){
     }
 }
 
-async function insertNotice(subject,text,user_id){
+async function insertNotice(subject,text,user_id,user_name,user_dept,user_position){
     try{
         await models.notice.create({
             subject:subject,
             text:text,
             user_id:user_id,
+            user_name:user_name,
+            user_dept:user_dept,
+            user_position:user_position,
             img:''
         });
     }catch(err){
@@ -38,10 +39,10 @@ async function insertNotice(subject,text,user_id){
     }
 }
 
-async function updateNotice(title,text,id){
+async function updateNotice(subject,text,id){
     try{
         let data = await models.notice.update({
-            title:title,
+            subject:subject,
             text:text
         },{where:{id:id}
     });

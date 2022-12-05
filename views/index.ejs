@@ -1,16 +1,11 @@
 <html>
     <%-include('main/header')%>
 
-
     <body>
         <div>
-        <%-include('main/sideIndex')%>
+          <%-include('main/sideIndex')%>
         </div>
-
         <div style="margin-left:20%;padding:1px 16px;height:1000px;">
-
-
-
         <div class="row">
             <!-- Earnings (Monthly) Card Example -->
             <% for(let i = 0; i < 4; i++){ %>
@@ -47,26 +42,18 @@
                     <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                         <thead>
                             <tr>
-                                <th>id</th>
-                                <th>title</th>
-                                <th>user_id</th>
-                                <th>regDate</th>
+                                <th>글번호</th>
+                                <th>제목</th>
+                                <th>작성자</th>
+                                <th>작성일</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>id</th>
-                                <th>title</th>
-                                <th>user_id</th>
-                                <th>regDate</th>
-                            </tr>
-                        </tfoot>
                         <tbody>
                             <% for(let i = 0; i < data.length; i++){ %>
                                 <tr>
                                     <td><%= data[i].id%></td>
                                     <td> <a href="/notice/<%= data[i].id%>"><%= data[i].subject%> </a> </td>
-                                    <td><%= data[i].user_id%></td>
+                                    <td><%= data[i].user_dept%>과<%= data[i].user_position%> <%= data[i].user_name%></td>
                                     <td><%= data[i].createdAt%></td>
                                 </tr>                                
                             <% } %>
