@@ -14,7 +14,8 @@ async function signIn(req,res){
                     id:user.id,
                     email:user.email,
                     name:user.name,
-                    position:user.position
+                    position:user.position,
+                    dept:user.dept
                 },secretKey,
                 {
                     expiresIn: '30m', // 30m -> 24h

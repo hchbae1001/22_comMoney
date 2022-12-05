@@ -7,6 +7,7 @@ let bcrypt = require('bcrypt');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 var noticeRouter = require('./routes/notice');
+var calendarRouter = require('./routes/calendar');
 var methodOverride = require('method-override');
 var app = express();
 
@@ -40,6 +41,7 @@ app.use('/css',express.static(__dirname + '/public/stylesheets/'));
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/notice',noticeRouter);
+app.use('/calendar',calendarRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
