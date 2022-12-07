@@ -73,11 +73,12 @@ async function getUser(req,res){
 }
 
 async function getUsers(req,res){
+
     let user = await getUserInfo(req);
     try{
         if(user.position == "인사" || user.position == "사장"){
             let data = await userService.getUsers();
-            return res.render('user/list',{data:data});
+            res.render('user/userList',{user:user,data:data.rows, count:data.count});
         }else{
             return res.redirect('/');
         }
@@ -90,9 +91,13 @@ async function getUsers(req,res){
 async function insertUser(req,res){
     const {email,name,nickName,password,phone} = req.body;
     try{
-        const encryptedPW = bcrypt.hashSync(password, 10);
-        let data = await userService.insertUser(email,name,nickName,encryptedPW,phone);
-        return res.redirect('/');
+        if(!email || !name || !password || !nickName){
+            return res.redirect('/');
+        }else{
+            const encryptedPW = bcrypt.hashSync(password, 10);
+            let data = await userService.insertUser(email,name,nickName,encryptedPW,phone);
+            return res.redirect('/');
+        }
     }catch(err){
         console.log(err);
         return res.status(400).json(err);
@@ -102,19 +107,16 @@ async function insertUser(req,res){
 async function updateUser(req,res){
     const {email,nickName,password,phone,position,dept} = req.body;
     const {id} = req.params;
-    let img ='';
-    let trans = 0;
     let user = await getUserInfo(req);
+    let transAction = '일반';
     try{
-        if(password){
-            trans = 1;
-        }
         const encryptedPW = bcrypt.hashSync(password, 10);
         if(user.id == id){
-            await userService.updateUser(id,email,nickName,encryptedPW,phone,position,dept,img,trans);
+            await userService.updateUser(id,email,nickName,encryptedPW,phone,position,dept,transAction);
             return res.redirect('/user/signOut');
         }else if(user.position == "인사" || user.position == "사장"){
-            await userService.updateUser(id,email,nickName,encryptedPW,phone,position,dept,img,trans);
+            transAction = '관리자';
+            await userService.updateUser(id,email,nickName,encryptedPW,phone,position,dept,transAction);
             return res.redirect('/user/list');
         }else{
             console.log("Invalid User");
@@ -158,10 +160,11 @@ async function signTest(req,res){
     });
     let testToken = jwt.sign(
         {
-            id: 1,
-            email: "test@naver.com",
-            name: "comMoney",
-            position: "사장"
+            id:1,
+            email:'admin@test',
+            name:'관리자',
+            position:'사장',
+            dept:'경영'
         },secretKey,
         {
             expiresIn: '1h',

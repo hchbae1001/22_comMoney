@@ -1,8 +1,6 @@
-<html>
-    <head>
+
         <%-include('../main/header')%>
-    </head>
-    <body>
+    <div class="container-fluid">
         <div>
             <h5 class="my-3 border-bottom pb-2">공지 수정</h5>
             <form method="post" action="/notice/<%= data.id%>?_method=patch">
@@ -21,8 +19,6 @@
                   <% } %>
             </form>
         </div>
-    </body>
-    <footer>
         <script>
             $('#deleteButton').click(function(){
                 var form = document.createElement("form");
@@ -33,6 +29,6 @@
                 form.submit();
             });
         </script>
+    </div>
         <%-include('../main/footer')%>
-    </footer>
-</html>
+    

@@ -68,29 +68,28 @@
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#signUpModal">Sign up</button>
 
 
-<div class="modal fade" id="signinModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="signInModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 <div class="modal-dialog modal-dialog-centered">
-<div class="modal-content">
-<div class="modal-header">
-<h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-</div>
-<div class="modal-body">
-<form action="/user/signIn" method="POST">
-<div class="mb-3">
-  <label for="recipient-name" class="col-form-label">Email :</label>
-  <input type="text" name="email" class="form-control" id="recipient-name">
-</div> 
-<div class="mb-3">
-  <label for="message-text" class="col-form-label">Password :</label>
-  <input type="password" class="form-control" id="message-text" name="password"></textarea>
-</div>
+    <div class="modal-content">
+      <div class="modal-header">
+      <h5 class="modal-title" id="exampleModalLabel">Sign In</h5>
+      </div>
+      <div class="modal-body">
+            <form action="/user/signIn" method="POST">
+            <div class="mb-3">
+              <label for="recipient-name" class="col-form-label">Email :</label>
+              <input type="text" name="email" class="form-control" id="recipient-name">
+            </div> 
+            <div class="mb-3">
+              <label for="message-text" class="col-form-label">Password :</label>
+              <input type="password" class="form-control" id="message-text" name="password"></textarea>
+            </div>
 
-<button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Log In</button>
-</form>
-</div>
-<div class="modal-footer">
-</div>
+            <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Log In</button>
+            </form>
+      </div>
+    <div class="modal-footer">
+    </div>
 </div>
 </div>
 </div>
@@ -100,7 +99,6 @@
 <div class="modal-content">
 <div class="modal-header">
 <h5 class="modal-title" id="exampleModalLabel">Sign Up</h5>
-<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
 </div>
 <div class="modal-body">
 <form action="/user/insert" method="POST">
@@ -114,15 +112,12 @@
 </div> 
 <div class="mb-3">
   <label for="message-text" class="col-form-label">Password :</label>
-  <input type="password" class="form-control" id="password" name="password" maxlength="20"></textarea>
+  <input type="password" class="form-control" id="pwd1" name="password" maxlength="20"></textarea>
 </div>
-
-<div class="alert alert-success" id="alert-success">비밀번호가 일치합니다.</div>
-<div class="alert alert-danger" id="alert-danger">비밀번호가 일치하지 않습니다.</div>
 
 <div class="mb-3">
   <label for="message-text" class="col-form-label">Password Check:</label>
-  <input type="password" class="form-control" id="password2" name="password2" maxlength="20"></textarea>
+  <input type="password" class="form-control" id="pwd2" name="password2" maxlength="20"></textarea>
 </div>
 <div class="mb-3">
   <label for="message-text" class="col-form-label">Name :</label>
@@ -132,7 +127,7 @@
   <label for="message-text" class="col-form-label">Phone :</label>
   <input type="text" class="form-control" id="message-text" name="phone" maxlength="13"></textarea>
 </div>
-<button id="submit" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign Up</button>
+<button id="signUpSubmit" class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign Up</button>
 </form>
 </div>
 <div class="modal-footer">
@@ -140,29 +135,3 @@
 </div>
 </div>
 </div>
-</header>
-</div>
-
-<script type="text/javascript">
-$(function(){
-
-$("#alert-success").hide();
-$("#alert-danger").hide();
-$("#submit").hide();
-$("input").keyup(function(){
-var pwd1=$("#password").val();
-var pwd2=$("#password2").val();
-if(pwd1 != "" || pwd2 != ""){
-    if(pwd1 == pwd2){
-        $("#alert-success").show();
-        $("#alert-danger").hide();
-        $("#submit").show();
-    }else{
-        $("#alert-success").hide();
-        $("#alert-danger").show();
-        $("#submit").hide();
-    }    
-}
-});
-});
-</script>

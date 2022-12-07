@@ -1,17 +1,41 @@
-<html>
-    <head>
-        <%- include('../main/header.ejs')
-    </head>
-    <body>
+<%-include('../main/header')%>
+    <div class="container-fluid">
 
-        <form method="post" action="/user/insert">
-            
-
-        </form>
-
-    </body>
-    <footer>
-        <%- include('../main/footer.ejs')
-    </footer>
-
-</html>
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">회원리스트 (회원 수 : <%=count%>)</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                        <thead>
+                            <tr>
+                                <th>부서</th>
+                                <th>직급</th>
+                                <th>이메일</th>
+                                <th>이름</th>
+                                <th>닉네임</th>
+                                <th>전화번호</th>
+                                <th>생성일</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% for(let i = 0; i < data.length; i++){ %>
+                                <tr>
+                                    <td><%= data[i].dept%></td>
+                                    <td><%= data[i].position%></td>
+                                    <td><%= data[i].email%></td>
+                                    <td> <a href="/user/<%= data[i].id%>"><%= data[i].name%> </a> </td>
+                                    <td><%= data[i].nickName%></td>
+                                    <td><%= data[i].phone%></td>
+                                    <td><%= data[i].createdAt%></td>
+                                </tr>                                
+                            <% } %>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+<%-include('../main/footer')%>

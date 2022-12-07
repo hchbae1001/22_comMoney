@@ -50,32 +50,29 @@ async function insertUser(email,name,nickName,password,phone){
         throw Error(err);
     }
 }
-async function updateUser(id,email,nickName,password,phone,position,dept,img,trans){
-    console.log("contain pwd");
+async function updateUser(id,email,nickName,password,phone,position,dept,transAction){
     try{
-        if(trans == 1){//비밀번호 변경시
-            await models.user.update({
-                email:email,
-                nickName:nickName,
-                password:password,
-                phone:phone,
-                position:position,
-                dept:dept,
-                img:img
-            },{where:{id:id}
-        });
+        if(transAction == '관리자'){
+            await models.user.update(
+                {
+                    email:email,
+                    nickName:nickName,
+                    password:password,
+                    phone:phone,
+                    position:position,
+                    dept:dept,
+                },{where:{id:id}
+            });
         }else{
-            await models.user.update({
-                email:email,
-                nickName:nickName,
-                phone:phone,
-                position:position,
-                dept:dept,
-                img:img
-            },{where:{id:id}
-        });
+            await models.user.update(
+                {
+                    email:email,
+                    nickName:nickName,
+                    password:password,
+                    phone:phone
+                },{where:{id:id}
+            });
         }
-
     }catch(err){
         console.log(err);
         throw Error(err);
