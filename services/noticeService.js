@@ -1,7 +1,11 @@
 let models = require('../models');
 async function getNotices(){
     try{
-        let data = await models.notice.findAndCountAll();
+        let data = await models.notice.findAndCountAll(
+            {
+                order:[['createdAt','desc']],
+            }
+        );
         console.log(data);
         return data;
     }catch(err){

@@ -11,6 +11,7 @@ const noticeService = require('../services/noticeService');
 
 
 router.get('/', async function(req, res, next) {
+  // return res.render('test');
   let data = await noticeService.getNotices();
   // return res.send(data);
   let crawlingNews = await crawling.getSportNews();
@@ -20,9 +21,11 @@ router.get('/', async function(req, res, next) {
     Check = jwt.verify(token,secretKey);
   }
   if(Check){
-    res.render('index', { user:Check, news:crawlingNews,data:data.rows });
+    res.render('test', { user:Check, news:crawlingNews,data:data.rows });
+    // res.render('index', { user:Check, news:crawlingNews,data:data.rows });
   }else{
-    res.render('index',{user:undefined, news:crawlingNews, data:data.rows});
+    res.render('test',{user:1, news:crawlingNews, data:data.rows});
+    // res.render('index',{user:undefined, news:crawlingNews, data:data.rows});
   }
 });
 

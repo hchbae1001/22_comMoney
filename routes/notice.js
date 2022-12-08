@@ -6,7 +6,7 @@ const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretkey').secretKey;
 
 /* GET notices listing. */
-router.get('/list',noticeController.getNotices);
+router.get('/list',verify,noticeController.getNotices);
 
 router.get('/insert',verify,function(req,res){
     const token = req.cookies.accessToken;
@@ -17,7 +17,7 @@ router.get('/insert',verify,function(req,res){
     if(Check){
       res.render('notice/noticeInsert', { user:Check});
     }else{
-      res.render('notice/noticeInsert',{user:undefined});
+      res.render('notice/noticeInsert',{user:1});
     }
     
 });

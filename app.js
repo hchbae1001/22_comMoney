@@ -36,8 +36,8 @@ app.use('/jQuery', express.static((__dirname + '/node_modules/jquery/dist/'))); 
 app.use('/bootStrap', express.static(__dirname + '/node_modules/bootstrap/dist/')); // bootstrap JS
 app.use('/js',express.static(__dirname + '/public/javascripts/'));
 app.use('/css',express.static(__dirname + '/public/stylesheets/'));
-
-
+app.use('/vendor',express.static(__dirname + '/public/vendor/'));
+app.use('/img',express.static(__dirname + '/public/images/'));
 app.use('/', indexRouter);
 app.use('/user', usersRouter);
 app.use('/notice',noticeRouter);

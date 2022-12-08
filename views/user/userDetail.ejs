@@ -1,6 +1,6 @@
-<html>
-    <head>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <%-include('../main/header') %>
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
     <style>
         body {
@@ -27,9 +27,8 @@
         box-shadow: 0 8px 20px 0 rgba(0, 0, 0, 0.15)
         }
     </style>
-    </head>
-    <%-include('../main/header') %>
-    <body>
+
+    <div class="container-fluid">
       <form action="/user/<%=data.id%>?_method=patch" method="post">
         <div class="container">
             <div class="input-form-backgroud row">
@@ -96,12 +95,12 @@
                           <% if(data.dept == dept[i]){ %>
                             selected
                           <%}%>
+                          <% if(user.position == '인사' || user.position == '사장'){ %>
+                            <%}else{%>
+                              disabled
+                            <%}%>
                           ><%=dept[i]%></option>
                       <%}%>
-                        <!-- <option value="인사">인사</option>
-                        <option value="경영">경영</option>
-                        <option value="재무">재무</option>
-                        <option value="개발">개발</option> -->
                       </select>
                       <div class="invalid-feedback">
                         부서를 선택해주세요.
@@ -110,7 +109,7 @@
 
                     <div class="col-md-6 mb-3">
                       <label for="code">직급</label>
-                      <select class="custom-select d-block w-100" id="position" name="position">
+                      <select class="custom-select d-block w-100" id="position" name="position" readonly>
 
                         <% 
                           let position = ['사원','대리','과장','부장','인사','사장'] 
@@ -120,15 +119,12 @@
                             <% if(data.position == position[i]){ %>
                               selected
                             <%}%>
+                            <% if(user.position == '인사' || user.position == '사장'){ %>
+                            <%}else{%>
+                              disabled
+                            <%}%>
                             ><%=position[i]%></option>
                         <%}%>
-                        <!-- <option value=""></option> -->
-                        <!-- <option value="사원">사원</option>
-                        <option value="대리">대리</option>
-                        <option value="과장">과장</option>
-                        <option value="부장">부장</option>
-                        <option value="인사">인사</option>
-                        <option value="사장">사장</option> -->
                       </select>
                       <div class="invalid-feedback">
                         부서를 선택해주세요.
@@ -140,53 +136,52 @@
                   <hr class="mb-4">
                   <div class="mb-4"></div>
                   <button id="userSubmit" class="btn btn-primary  btn-block" type="submit">변경 완료</button>
-                  <% if(user.position == '사장' || user.position == '인사'){ %>
-                    <button id="deleteButton" class="btn btn-primary  btn-block" type="submit">삭제</button>
-                  <% } %>
                 </form>
               </div>
             </div>
-            <footer class="my-3 text-center text-small">
-            </footer>
         </div>
       </form>
-          <script>
-            $('#userSubmit').click(function(){
-              let pwd1 = document.getElementById('pwd1').value;
-              let pwd2 = document.getElementById('pwd2').value;
-              if(pwd1 == pwd2){
-                return true;
-              }else{
-                alert('비밀번호 불일치');
-                return false;
-              }
+      <% if(user.position == '사장' || user.position == '인사'){ %>
+        <% if(data.position =='사장'){%>
+        <button id="deleteButton" class="btn btn-primary  btn-block">삭제</button>
+        <%}%>
+      <% } %>
+    </div>
+<%-include('../main/footer') %>
+
+        <script>
+          $('#userSubmit').click(function(){
+            let pwd1 = document.getElementById('pwd1').value;
+            let pwd2 = document.getElementById('pwd2').value;
+            if(pwd1 == pwd2){
+              return true;
+            }else{
+              alert('비밀번호 불일치');
+              return false;
+            }
+          });
+
+          $('#deleteButton').click(function(){
+            console.log('11');
+              var form = document.createElement("form");
+              form.setAttribute("method", "POST");
+              form.setAttribute("action", "/user/<%= data.id%>?_method=delete");
+              document.body.appendChild(form);
+              form.submit();
+          });
+
+          window.addEventListener('load', () => {
+            const forms = document.getElementsByClassName('validation-form');
+      
+            Array.prototype.filter.call(forms, (form) => {
+              form.addEventListener('submit', function (event) {
+                if (form.checkValidity() === false) {
+                  event.preventDefault();
+                  event.stopPropagation();
+                }
+      
+                form.classList.add('was-validated');
+              }, false);
             });
-
-            $('#deleteButton').click(function(){
-                var form = document.createElement("form");
-                form.setAttribute("method", "POST");
-                form.setAttribute("action", "/user/<%= data.id%>?_method=delete");
-                document.body.appendChild(form);
-                form.submit();
-            });
-
-            window.addEventListener('load', () => {
-              const forms = document.getElementsByClassName('validation-form');
-        
-              Array.prototype.filter.call(forms, (form) => {
-                form.addEventListener('submit', function (event) {
-                  if (form.checkValidity() === false) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                  }
-        
-                  form.classList.add('was-validated');
-                }, false);
-              });
-            }, false);
-          </script>
-    </body>
-        <%-include('../main/footer') %>
-    
-
-</html>
+          }, false);
+        </script>
