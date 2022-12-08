@@ -1,80 +1,65 @@
-<html>
-    <%-include('main/header')%>
+<%-include('main/header')%>
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
 
-    <body>
-        <div>
-          <%-include('main/sideIndex')%>
-        </div>
-        <div style="margin-left:20%;padding:1px 16px;height:1000px;">
-        <div class="row">
-            <!-- Earnings (Monthly) Card Example -->
-            <% for(let i = 0; i < 4; i++){ %>
-                <div class="col-xl-3 col-md-6 mb-4">
-                    <div class="card border-left-primary shadow h-100 py-2">
-                        <!-- <div class="image_area">
-                            <img src="<%=news[0].imgUrl%>" width="190" height="95">
-                        </div> -->
-                        <div class="card-body">
-                            <div class="row no-gutters align-items-center">
-                                <div class="col mr-2">
-                                    <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
-                                        <a href="<%= news[i].url%>" target="_blank"><%= news[i].title%></a></div>
-                                    <div class="h7 mb-0 font-weight-bold text-gray-800">
-                                        <%= news[i].summary%>
+                    <!-- Page Heading -->
+                    <div class="row">
+                        <!-- Earnings (Monthly) Card Example -->
+                        <% for(let i = 0; i < 4; i++){ %>
+                            <div class="col-xl-3 col-md-6 mb-4">
+                                <div class="card border-left-primary shadow h-100 py-2">
+                                    <!-- <div class="image_area">
+                                        <img src="<%=news[0].imgUrl%>" width="190" height="95">
+                                    </div> -->
+                                    <div class="card-body">
+                                        <div class="row no-gutters align-items-center">
+                                            <div class="col mr-2">
+                                                <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">
+                                                    <a href="<%= news[i].url%>" target="_blank"><%= news[i].title%></a></div>
+                                                <div class="h7 mb-0 font-weight-bold text-gray-800">
+                                                    <%= news[i].summary%>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="col-auto">
-                                    <i class="fas fa-calendar fa-2x text-gray-300"></i>
-                                </div>
+                            </div>    
+                        <% } %>
+                    </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary"><a href="/notice/list">공지사항</a></h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                                    <thead>
+                                        <tr>
+                                            <th>글번호</th>
+                                            <th>제목</th>
+                                            <th>작성자</th>
+                                            <th>작성일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <% for(let i = 0; i < data.length; i++){ %>
+                                            <tr>
+                                                <td><%= data[i].id%></td>
+                                                <td> <a href="/notice/<%= data[i].id%>"><%= data[i].subject%> </a> </td>
+                                                <td><%= data[i].user_dept%>과<%= data[i].user_position%> <%= data[i].user_name%></td>
+                                                <td><%= data[i].createdAt%></td>
+                                            </tr>                                
+                                        <% } %>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
                     </div>
-                </div>    
-            <% } %>
-        </div>
 
-        <div class="card shadow mb-4">
-            <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">공지사항</h6>
-            </div>
-            <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                        <thead>
-                            <tr>
-                                <th>글번호</th>
-                                <th>제목</th>
-                                <th>작성자</th>
-                                <th>작성일</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% for(let i = 0; i < data.length; i++){ %>
-                                <tr>
-                                    <td><%= data[i].id%></td>
-                                    <td> <a href="/notice/<%= data[i].id%>"><%= data[i].subject%> </a> </td>
-                                    <td><%= data[i].user_dept%>과<%= data[i].user_position%> <%= data[i].user_name%></td>
-                                    <td><%= data[i].createdAt%></td>
-                                </tr>                                
-                            <% } %>
-                        </tbody>
-                    </table>
                 </div>
+                <!-- /.container-fluid -->
+
             </div>
-        </div>
-
-
-        <div class="card shadow mb-4">
-
-            <a href="/schedule/schedule>"></a>
-            <!-- 이게 아니면 수정필요 -->
-
-
-
-        </div>
-    </div>
-        
-
-    </body>
-        <%-include('main/footer')%>
-</html>
+            <!-- End of Main Content -->
+<%-include('main/footer')%>

@@ -98,6 +98,11 @@
                     <i class="fas fa-fw fa-table"></i>
                     <span>공지사항</span></a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user/salary">
+                    <i class="fas fa-fw fa-table"></i>
+                    <span>급여계산</span></a>
+            </li>
 
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
@@ -136,7 +141,7 @@
                           <% if(user != 1){ %>
                             <span class="mr-2 d-none d-lg-inline text-gray-600"><%= user.dept%>과 <%= user.position%> <%=user.name%></span>
                               <button type="button" class="btn btn-outline-primary"><a href="/user/signOut">sign out</a></button>
-                              <button type="button" class="btn btn-outline-primary"><a href="/user/<%= user.id%>">mypage</a></button>
+                              <button type="button" class="btn btn-outline-primary"><a href="/user/<%= user.id%>">myStatus</a></button>
                           <%}else{%>
                             <%-include('../main/signModal') %>
                           <%}%>

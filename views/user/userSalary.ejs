@@ -1,0 +1,186 @@
+<%-include('../main/header')%>
+    <div class="container-fluid">
+
+        <!-- start of content -->
+        <div id="calculator_output">
+            <!--근로자 임금명세서-->
+            <div class="calculator_output_labor_part">
+              <h2><span class="text_color_blue">근로자</span> <span class="text_color_blue2">임금명세서</span></h2>
+              <div class="labor_total_output_item2 labor_total_output_item3">
+                <span class="input_label_big">급여액(월)</span>
+                <span class="output_cost" id="expect"><%= salary_char%><span class="output_cost_unit_new">원</span></span>
+              </div>
+              <div class="labor_output_item1">
+                  <span class="input_label_deduct">공제내역</span> <span class="input_label_calComment" id="월소득기준액계산식"><span class="colorF0">*</span>월소득액 <b>2,816,666원</b> = 급여액 <b>2,916,666원</b> - 비과세액 <b>100,000원</b></span>
+              </div>
+              <div class="line3"></div>
+              <div class="labor_output_item2">
+                <span class="input_label55">국민연금료<span data-tooltip-text="월소득액(비과세액 제외)×4.5%. 월 최저액 35만원, 최고액 553만원(2022.7~2023.6)"> <i class="fa fa-question-circle"></i></span></span>
+                <% let op1,op2 = salary_month%>
+                <% if(salary_month > 5530000){op1 = 5530000 * 0.045}else{op1 = salary_month*0.045}%>
+                <span class="cal55" id="근로자국민연금료계산식"><%=salary_month%>원×4.5%</span>
+                <span class="output_cost55" id="pension"><%=op1%><span class="output_cost55_unit_new">원</span></span>
+              </div>
+              <div class="line2"></div>
+              <div class="labor_output_item2">
+                  <span class="input_label55">건강보험료<span data-tooltip-text="월소득액(비과세액 제외)×3.495%(2022년)"> <i class="fa fa-question-circle"></i></span></span>
+                  <span class="cal55" id="근로자건강보험료계산식">2,816,666원×3.495%</span>
+                  <span class="output_cost55" id="health"><%=op2%><span class="output_cost55_unit_new">원</span></span>
+              </div>
+              <div class="labor_output_item2">
+                  <span class="input_label55">장기요양보험료<span data-tooltip-text="건강보험료×12.27%(2022년)"> <i class="fa fa-question-circle"></i></span></span>
+                  <span class="cal55" id="근로자장기요양보험료계산식">98,440원×12.27%</span>
+                  <span class="output_cost55" id="treatment">12,070<span class="output_cost55_unit_new">원</span></span>
+              </div>
+                  <div class="line2"></div>
+              <div class="labor_output_item2">
+                  <span class="input_label55">고용보험료<span data-tooltip-text="월소득액(비과세액 제외)×0.9%. 실업급여 부담금만 해당"> <i class="fa fa-question-circle"></i></span></span>
+                  <span class="cal55" id="근로자고용보험료계산식">2,816,666원×0.9%</span>
+                  <span class="output_cost55" id="employ">25,340<span class="output_cost55_unit_new">원</span></span>
+              </div>
+              <div class="line2"></div>
+              <div class="labor_output_item2">
+                  <span class="input_label55">근로소득세<span data-tooltip-text="월소득액(비과세액 제외), 근로소득 간이세액표에 따라 계산. 근로소득 간이세액표는 [근로소득세 자동계산 → 간이세액표]에서 다운로드"> <i class="fa fa-question-circle"></i></span></span>
+                  <span class="cal55" id="근로소득세계산식"><span style="letter-spacing:-1.5px;">소득세법 시행령 189조 별표2(근로소득세 간이세액표) </span><a href="https://www.nodong.kr/income_tax_down"><span data-tooltip-text="근로소득세 간이세액표 바로보기"><i class="fa fa-question-circle"></i></span></a></span>
+                  <span class="output_cost55" id="earn">68,160<span class="output_cost55_unit_new">원</span></span>
+              </div>
+              <div class="labor_output_item2">
+                  <span class="input_label55">지방소득세<span data-tooltip-text="근로소득세×10%"> <i class="fa fa-question-circle"></i></span></span>
+                  <span class="cal55" id="지방소득세계산식">68,160원×10%</span>
+                  <span class="output_cost55" id="local">6,810<span class="output_cost55_unit_new">원</span></span>
+              </div>
+              <div class="labor_total_output_item labor_total_output_item2">
+                <span class="input_label_big">공제액 합계</span>
+                <span class="output_cost" id="total_decut">337,540<span class="output_cost_unit_new">원</span></span>
+              </div>
+              <div class="labor_total_output_item labor_total_output_item2">
+                <span class="input_label_big">예상 실수령액(월)</span>
+                <span class="output_cost" id="receipt">2,579,126<span class="output_cost_unit_new">원</span></span>
+              </div>
+            </div>
+            <!--회사 부담금-->
+            <div class="calculator_output_company_part">
+              <h2><span class="text_color_red">회사</span> <span class="text_color_red2">부담액</span></h2>
+              <div class="company_output_item2">
+                <span class="input_label_burden">부담내역</span> <span class="input_label_calComment" id="월소득기준액계산식2"><span class="colorF0">*</span>월소득액 <b>2,816,666원</b> = 급여액 <b>2,916,666원</b> - 비과세액 <b>100,000원</b></span>
+              </div>
+          
+              <div class="line4"></div>
+              <div class="company_output_item2">
+                <span class="input_label66">국민연금</span>
+                <span class="input_label662">국민연금료<span data-tooltip-text="월소득액(비과세액 제외)×4.5%. 월 최저액 35만원, 최고액 553만원(2022.7~2023.6)"><i class="fa fa-question-circle"></i></span></span>
+                <span class="cal66" id="회사국민연금료계산식">2,816,666원×4.5%</span>
+                <span class="output_cost66" id="pension2">126,720<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              <div class="line"></div>
+              <div class="company_output_item2">
+                  <span class="input_label66">건강보험</span>
+                  <span class="input_label662">건강보험료<span data-tooltip-text="월소득액(비과세액 제외)×3.495% (2022년)"> <i class="fa fa-question-circle"></i></span></span>
+                  <span class="cal66" id="회사건강보험료계산식">2,816,666원×3.495%</span>
+                  <span class="output_cost66" id="health2">98,440<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              <div class="company_output_item2">
+                  <span class="input_label66"></span>
+                  <span class="input_label662">장기요양보험료<span data-tooltip-text="건강보험료×12.27% (2022년)"> <i class="fa fa-question-circle"></i></span></span>
+                  <span class="cal66" id="회사장기요양보험료계산식">98,440원×12.27%</span>
+                  <span class="output_cost66" id="treatment2">12,070<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              <div class="line"></div>
+              <div class="company_output_item2">
+                <span class="input_label66">고용보험</span>
+                <span class="input_label662">실업급여<span data-tooltip-text="월소득액(비과세액 제외)×0.9%"> <i class="fa fa-question-circle"></i></span></span>
+                <span class="cal66" id="회사고용보험실업급여부담금계산식">2,816,666원×0.9%</span>
+                <span class="output_cost66" id="unemploy2">25,340<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              <div class="company_output_item2">
+                <span class="input_label66"></span>
+                <span class="input_label662">고용안정<span data-tooltip-text="월소득액(비과세액 제외)×기업규모별 부담비율[150인 미만은 0.25%, 150인이상(우선지원대상기업)은 0.45%, 150~999인(우선지원대상기업 제외)은 0.65%, 1,000인 이상 및 국가 지자체는 0.85%]"> <i class="fa fa-question-circle"></i></span></span>
+                <span class="cal66" id="회사고용보험고용안정부담금계산식">2,816,666원×0.25% (150명 미만 사업장)<span data-tooltip-text="150인 미만: 0.25%, 150인이상(우선지원대상기업): 0.45%, 150~999인(우선지원대상기업 제외): 0.65%, 1,000인 이상 및 국가 지자체: 0.85%"> <i class="fa fa-question-circle"></i></span></span>
+                <span class="output_cost66" id="employ2">7,040<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              
+              <div class="line"></div>
+                  
+              <div class="company_output_item2">
+                <span class="input_label66">산재보험</span>
+                <span class="input_label662">산재보험료<span data-tooltip-text="월소득액(비과세액 제외)×업종별 산재요율(자료→고시 코너에서 다운로드)"> <i class="fa fa-question-circle"></i></span></span>
+                <span class="output_select66">
+                  <select id="business_type" style="width:200px; height:30px">
+                    <option>업종선택 필수</option>
+                    <option>1  석탄광업 및 채석업</option>
+                    <option>2  석회석·금속·비금속·기타광업</option>
+                    <option>3  식료품 제조업</option>
+                    <option>4  섬유 및 섬유제품 제조업</option>
+                    <option>5  목재 및 종이제품 제조업</option>
+                    <option>6  출판·인쇄·제본업</option>
+                    <option>7  화학 및 고무제품 제조업</option>
+                    <option>8  의약품·화장품·연탄·석유제품 제조업</option>
+                    <option>9  기계기구·금속·비금속광물제품 제조업</option>
+                    <option>10 금속제련업</option>
+                    <option>11 전기기계기구·정밀기구·전자제품 제조업</option>
+                    <option>12 선박건조 및 수리업</option>                
+                    <option>13 수제품 및 기타제품 제조업</option>
+                    <option>14 전기·가스·증기 및 수도사업</option>
+                    <option>15 건설업</option>
+                    <option>16 철도·항공·창고·운수관련서비스업</option>
+                    <option>17 육상 및 수상운수업</option>
+                    <option>18 통신업</option>
+                    <option>19 임업</option>
+                    <option>20 어업</option>
+                    <option>21 농업</option>
+                    <option>22 시설관리 및 사업지원 서비스업</option>
+                    <option>23 기타의 각종사업</option>
+                    <option>24 전문·보건·교육·여가관련 서비스업</option>
+                    <option>25 도소매·음식·숙박업</option>
+                    <option>26 부동산업 및 임대업</option>
+                    <option>27 국가 및 지방자치단체의 사업</option>
+                    <option>28 금융 및 보험업</option>
+                    <option>29 해외파견자</option>
+                  </select>
+                  <a href="https://www.nodong.kr/instruction/406676"><span data-tooltip-text="업종별산재보험료율 바로보기"> <i class="fa fa-question-circle"></i></span></a>
+                </span>
+              </div>
+                
+              <div class="company_output_item2">
+                <span class="input_label66"></span>
+                <span class="input_label662"></span>
+                <span class="cal662" id="회사산재보험료계산식">2,816,666원×<span style="letter-spacing:-1px;">0% (업종 선택 없음)</span>÷1,000</span>
+                <span class="output_cost66m_sj" id="accident2_1">0<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              <div class="company_output_item2">
+                <span class="input_label66"></span>
+                <span class="input_label662">출퇴근재해보험료<span data-tooltip-text="전업종 1.0%."> <i class="fa fa-question-circle"></i></span></span>
+                <span class="cal662" id="회사출퇴근재해보험료계산식">2,816,666원×1%÷1,000</span>
+                <span class="output_cost66m_sj" id="accident2_2">0<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              <div class="company_output_item2">
+                <span class="input_label66"></span>
+                <span class="input_label662">임채기금 부담금<span data-tooltip-text="임금채권보장기금 부담금 : 전업종 0.6%."> <i class="fa fa-question-circle"></i></span></span>
+                <span class="cal662" id="회사임채기금부담금계산식">2,816,666원×0.6%÷1,000</span>
+                <span class="output_cost66m_sj" id="accident2_3">0<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              <div class="company_output_item2">
+                <span class="input_label66"></span>
+                <span class="input_label662">석면 분담금<span data-tooltip-text="석면피해구제 분담금 : 전업종 0.03%. 단, 20인미만 회사는 제외"> <i class="fa fa-question-circle"></i></span></span>
+                <span class="cal662" id="회사석면피해구제분담금계산식">2,816,666원×0.03%÷1,000</span>
+                <span class="output_cost66m_sj" id="accident2_4">0<span class="output_cost66_unit_new">원</span></span>
+              </div>
+          
+              <div class="company_output_item2">
+                <span class="input_label66"></span>
+                <span class="input_label662"><b>합계</b><span data-tooltip-text="산재보험료+출퇴근재해보험료+임채기금 부담금+석면피해구제 분담금"> <i class="fa fa-question-circle"></i></span></span>
+                <span class="cal662"></span>
+                <span class="output_cost66m" id="sanjaeTotalMonth">0<span class="output_cost66_unit_new">원</span></span>
+              </div>
+              <div class="company_total_output_item company_total_output_item2">
+                <span class="input_label_big2">매월 부담액</span>
+                <span class="output_cost" id="month_cost2">269,610<span class="output_cost66_unit_new">원</span></span>
+              </div>
+            </div>
+          </div>
+
+            <!-- end of content -->
+          </div>
+        <%= salary_year%> <br>
+    </div>
+<%-include('../main/footer')%>

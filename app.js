@@ -31,7 +31,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
+logger('dev');
+var myMorgan = logger('combined', {
+	skip : function(req, res) { return res.statusCode < 400 }
+});
+app.use(myMorgan);
 app.use('/jQuery', express.static((__dirname + '/node_modules/jquery/dist/'))); //jQuery
 app.use('/bootStrap', express.static(__dirname + '/node_modules/bootstrap/dist/')); // bootstrap JS
 app.use('/js',express.static(__dirname + '/public/javascripts/'));
