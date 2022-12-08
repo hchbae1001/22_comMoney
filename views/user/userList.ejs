@@ -1,13 +1,33 @@
 <%-include('../main/header')%>
     <div class="container-fluid">
-
         <div class="card shadow mb-4">
             <div class="card-header py-3">
-                <h6 class="m-0 font-weight-bold text-primary">회원리스트 (회원 수 : <%=count%>)</h6>
+                <h6 class="m-0 font-weight-bold text-primary">회원리스트 (회원 수 :
+                    <%=count%>)</h6>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
-                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0" style="text-align: center;">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6"></div>
+                        <div class="col-sm-12 col-md-6">
+                            <div class="input-group">
+                                <div class="form-outline">
+                                    <input type="search" id="searchText" class="form-control"/>
+                                </div>
+                                <button type="button" class="btn btn-primary" id="searchButton">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <table
+                        class="table
+        table-bordered"
+                        id="dataTable"
+                        width="100%"
+                        cellspacing="0"
+                        style="text-align:
+        center;">
                         <thead>
                             <tr>
                                 <th>부서</th>
@@ -20,22 +40,45 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(let i = 0; i < data.length; i++){ %>
+                            <% for(let i = 0;
+        i < data.length; i++){ %>
                                 <tr>
                                     <td><%= data[i].dept%></td>
                                     <td><%= data[i].position%></td>
                                     <td><%= data[i].email%></td>
-                                    <td> <a href="/user/<%= data[i].id%>"><%= data[i].name%> </a> </td>
+                                    <td>
+                                        <a href="/user/<%=
+        data[i].id%>"><%= data[i].name%>
+                                        </a>
+                                    </td>
                                     <td><%= data[i].nickName%></td>
                                     <td><%= data[i].phone%></td>
                                     <td><%= data[i].createdAt%></td>
-                                </tr>                                
+                                </tr>
                             <% } %>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
-        
+
     </div>
-<%-include('../main/footer')%>
+    <%-include('../main/footer')%>
+    <script>
+        'use strict'
+        function search(){
+            let text = document.getElementById('searchText').value;
+            let url = '/user/list?searchText='+ text;
+            console.log(url);
+            location.href=url;
+        }
+        $("#searchText").on("keyup",function(key){
+            if(key.keyCode==13) {
+                search();    
+            }
+        });
+
+        $('#searchButton').on('click', function(){
+            search();
+        });
+    </script>

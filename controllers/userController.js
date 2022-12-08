@@ -22,17 +22,8 @@ async function signIn(req,res){
                     algorithm: 'HS256',
                 }
             )
-            // const refreshToken = jwt.sign(
-            //         {
-            //             id:user.id
-            //         },secretKey,
-            //         {
-            //             expiresIn: '1d',   
-            //         }
-            //     )
             console.log('access');
             res.cookie('accessToken',jwtToken);
-            // res.cookie('refreshToken', refreshToken);
             return res.redirect('/');
         }else{
             console.log('access denied');
@@ -73,11 +64,14 @@ async function getUser(req,res){
 }
 
 async function getUsers(req,res){
-
+    let {searchText} = req.query;
+    if(!searchText){
+        searchText='';
+    }
     let user = await getUserInfo(req);
     try{
         if(user.position == "인사" || user.position == "사장"){
-            let data = await userService.getUsers();
+            let data = await userService.getUsers(searchText);
             res.render('user/userList',{user:user,data:data.rows, count:data.count});
         }else{
             return res.redirect('/');
@@ -112,6 +106,9 @@ async function updateUser(req,res){
     try{
         const encryptedPW = bcrypt.hashSync(password, 10);
         if(user.id == id){
+            if(user.position == "인사" || user.position == "사장"){
+                transAction = '관리자';
+            }
             await userService.updateUser(id,email,nickName,encryptedPW,phone,position,dept,transAction);
             return res.redirect('/user/signOut');
         }else if(user.position == "인사" || user.position == "사장"){

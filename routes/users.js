@@ -2,25 +2,6 @@ var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/userController');
 const verify = require('./jwtAuth').verifyToken;
-
-// let models = require('../models');
-// const bcrypt = require('bcrypt');
-
-// router.get('/test',async function(req,res){
-//     try{
-//         const encryptedPW = bcrypt.hashSync("123123", 10);
-//         await models.user.create({
-//             email:"admin@test",
-//             name:"관리자",
-//             dept_id:"1",
-//             position_id: "5",
-//             password:encryptedPW,
-//         });
-//         return res.redirect('/');
-//     }catch(err){
-//         console.log(err);
-//     }
-// });
 /* GET users listing. */
 router.get('/signOut', userController.signOut);
 router.get('/list',verify, userController.getUsers);

@@ -1,7 +1,16 @@
 let models = require('../models');
-async function getUsers(offset,limit){
+const { Op } = require('sequelize');
+
+async function getUsers(searchText){
+    let search = '%'+searchText+'%'
     try{
-        let data = await models.user.findAndCountAll();
+        let data = await models.user.findAndCountAll({
+            where:{
+                name:{
+                    [Op.like]: search
+                }
+            }
+        });
         console.log(data);
         return data;
     }catch(err){

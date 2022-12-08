@@ -14,13 +14,17 @@
                 </div>
                 <br>
                 <button type="submit" class="btn btn-primary">저장하기</button>
-                <% if(user.position == '사장' || user.position == '인사'){ %>
-                    <button id="deleteButton" class="btn btn-primary" type="submit">삭제</button>
-                  <% } %>
             </form>
+            <% if(user.position == '사장' || user.position == '인사'){ %>
+                <button id="deleteButton" class="btn btn-primary">삭제</button>
+              <% } %>
         </div>
+
+    </div>
+        <%-include('../main/footer')%>
+
         <script>
-            $('#deleteButton').click(function(){
+            $('#deleteButton').on('click',function(){
                 var form = document.createElement("form");
                 form.setAttribute("user_id", "<%= data.user_id%>");
                 form.setAttribute("method", "POST");
@@ -29,6 +33,4 @@
                 form.submit();
             });
         </script>
-    </div>
-        <%-include('../main/footer')%>
     
