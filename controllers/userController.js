@@ -159,35 +159,60 @@ async function getSalary(req,res){
     console.log(user);
 
     let salary_month, salary_year,salary_char;
+    let op1,op2,op3,op4,op5,op6;
     try{
         switch(user.position){
             case '사장':
                 salary_month =  10000000;
                 salary_char = '10,000,000'
+                op5 = 1552400
                 break;
             case '인사':
                 salary_month =  3000000;
                 salary_char = '3,000,000'
+                op5 = 84,850
                 break;
             case '부장':
                 salary_month =  6000000;
                 salary_char = '6,000,000'
+                op5 = 550900
                 break;
             case '과장':
                 salary_month =  5000000;
                 salary_char = '5,000,000'
+                op5 = 350470
                 break;
             case '대리':
                 salary_month =  4000000;
                 salary_char = '4,000,000'
+                op5 = 210960
                 break;    
             case '사원':
                 salary_month =  3000000;
                 salary_char = '3,000,000'
+                op5 = 84850
                 break;
         }
         salary_year = salary_month * 12;
-        return res.render('user/userSalary', { user:user, salary_month:salary_month,salary_year:salary_year, salary_char:salary_char});
+        if(salary_month > 5530000){
+            op1 = 5530000 * 0.045
+        }else{
+            op1 = salary_month*0.045
+        }
+        op2 = salary_month * 0.03495
+        op3 = op2 * 0.1227
+        op4 = salary_month * 0.009
+        op6 = op5 * 0.1
+        let salary_option = {
+            'op1':op1,
+            'op2':op2,
+            'op3':op3,
+            'op4':op4,
+            'op5':op5,
+            'op6':op6
+        };
+        console.log(salary_option);
+        return res.render('user/userSalary', { user:user, salary_month:salary_month,salary_year:salary_year, salary_char:salary_char,salary_option:salary_option});
     }catch(err){
         console.log(err);
     }
