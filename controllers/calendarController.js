@@ -21,7 +21,7 @@ async function getCalendars(req,res){
     try{
         let data = await calendarService.getCalendars();
         return res.render('calendar/calendarList',{
-            // data:data.rows, count:data.count,user:user 
+            data:data.rows, count:data.count,user:user 
         });
     }catch(err){
         console.log(err);
