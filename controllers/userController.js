@@ -18,7 +18,7 @@ async function signIn(req,res){
                     dept:user.dept
                 },secretKey,
                 {
-                    expiresIn: '30m', // 30m -> 24h
+                    expiresIn: '1h', // 30m -> 24h
                     algorithm: 'HS256',
                 }
             )
@@ -154,6 +154,45 @@ async function getUserInfo(req){
     return data;
 }
 
+async function getSalary(req,res){
+    let user = await getUserInfo(req);
+    console.log(user);
+
+    let salary_month, salary_year,salary_char;
+    try{
+        switch(user.position){
+            case '사장':
+                salary_month =  10000000;
+                salary_char = '10,000,000'
+                break;
+            case '인사':
+                salary_month =  3000000;
+                salary_char = '3,000,000'
+                break;
+            case '부장':
+                salary_month =  6000000;
+                salary_char = '6,000,000'
+                break;
+            case '과장':
+                salary_month =  5000000;
+                salary_char = '5,000,000'
+                break;
+            case '대리':
+                salary_month =  4000000;
+                salary_char = '4,000,000'
+                break;    
+            case '사원':
+                salary_month =  3000000;
+                salary_char = '3,000,000'
+                break;
+        }
+        salary_year = salary_month * 12;
+        return res.render('user/userSalary', { user:user, salary_month:salary_month,salary_year:salary_year, salary_char:salary_char});
+    }catch(err){
+        console.log(err);
+    }
+}
+
 async function signTest(req,res){
     res.clearCookie('accessToken',null,{
         maxAge:0
@@ -192,5 +231,6 @@ module.exports={
     getUsers:getUsers,
     insertUser:insertUser,
     updateUser:updateUser,
-    deleteUser:deleteUser
+    deleteUser:deleteUser,
+    getSalary:getSalary
 }

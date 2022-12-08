@@ -25,7 +25,7 @@ const verify = require('./jwtAuth').verifyToken;
 router.get('/signOut', userController.signOut);
 router.get('/list',verify, userController.getUsers);
 router.post('/signIn',userController.signIn);
-
+router.get('/salary',verify,userController.getSalary);
 // 로그아웃
 router.get('/logout',verify, userController.signOut);
 //회원가입 폼 페이지 + 가입

@@ -96,5 +96,5 @@ module.exports ={
     getUsers:getUsers,
     insertUser:insertUser,
     updateUser:updateUser,
-    deleteUser:deleteUser,
+    deleteUser:deleteUser
 }

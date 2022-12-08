@@ -18,13 +18,20 @@ router.get('/', async function(req, res, next) {
   const token = req.cookies.accessToken;
   let Check;
   if(token){
-    Check = jwt.verify(token,secretKey);
+    try{
+      Check = jwt.verify(token,secretKey);
+    }catch(err){
+      console.log(err);
+      res.clearCookie('accessToken',null,{
+        maxAge:0
+      });
+    }
   }
   if(Check){
-    res.render('test', { user:Check, news:crawlingNews,data:data.rows });
+    res.render('index', { user:Check, news:crawlingNews,data:data.rows });
     // res.render('index', { user:Check, news:crawlingNews,data:data.rows });
   }else{
-    res.render('test',{user:1, news:crawlingNews, data:data.rows});
+    res.render('index',{user:1, news:crawlingNews, data:data.rows});
     // res.render('index',{user:undefined, news:crawlingNews, data:data.rows});
   }
 });
