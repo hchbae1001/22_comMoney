@@ -1,67 +1,76 @@
 <%-include('../main/header')%>
     <div class="container-fluid">
         <!-- start of content -->
+        <% let opTotal = salary_option.op1+salary_option.op2+salary_option.op3+salary_option.op4+salary_option.op5+salary_option.op6 %>
+        <% let salary = salary_month - opTotal %>
+        <% let op1 = salary_option.op1.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); %>
+        <% let op2 = salary_option.op2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); %>
+        <% let op3 = salary_option.op3.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); %>
+        <% let op4 = salary_option.op4.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); %>
+        <% let op5 = salary_option.op5.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); %>
+        <% let op6 = salary_option.op6.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); %>
+        <% opTotal = opTotal.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); %>
+        <% salary = salary.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ','); %>
       <div class="col-md-7 order-md-3 mb-5">
         <h4 class="d-flex justify-content-between align-items-center mb-3">
-          <span class="text-muted">근로자 임금명세서</span>
+          <span class="text-muted">근로자 임금명세서 (1인가구 기준) </span>
         </h4>
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div>
               <h6 class="my-0">급여액(월)</h6>
             </div>
-            <strong><%= salary_month%>￦</strong>
+            <strong>￦<%= salary_month.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%></strong>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div>
               <h6 class="my-0">국민연금료</h6>
-              <small class="text-muted"><%=salary_month%>원×4.5% (월급530만 이상은 530만으로 고정)</small>
+              <small class="text-muted">￦<%=salary_month.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%>원×4.5% (월급530만 이상은 530만으로 고정)</small>
             </div>
-            <span class="text-muted"><%= Math.floor(salary_option.op1)%>￦</span>
+            <span class="text-muted">￦<%= op1%></span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div>
               <h6 class="my-0">건강보험료</h6>
-              <small class="text-muted"><%= salary_month%>원×3.495%</small>
+              <small class="text-muted">￦<%= salary_month.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%>원×3.495%</small>
             </div>
-            <span class="text-muted"><%= Math.floor(salary_option.op2)%>￦</span>
+            <span class="text-muted">￦<%= op2%></span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div class="text-muted">
               <h6 class="my-0">장기요양보험료</h6>
-              <small class="text-muted"><%= salary_option.op2%>원×12.27%</small>
+              <small class="text-muted">￦<%= salary_option.op2.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%>원×12.27%</small>
             </div>
-            <span class="text-muted"><%= Math.floor(salary_option.op3)%>￦</span>
+            <span class="text-muted">￦<%= op3%></span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div class="text-muted">
               <h6 class="my-0">고용보험료</h6>
-              <small class="text-muted"><%= salary_month%>원×0.9%</small>
+              <small class="text-muted">￦<%= salary_month.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%>원×0.9%</small>
             </div>
-            <span class="text-muted"><%= Math.floor(salary_option.op4)%>￦</span>
+            <span class="text-muted">￦<%= op4%></span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div class="text-muted">
               <h6 class="my-0">근로소득세</h6>
-              <small class="text-muted"><%= salary_option.op5%></small>
+              <small class="text-muted">￦<%= salary_option.op5.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%></small>
             </div>
-            <span class="text-muted"><%= Math.floor(salary_option.op5)%>￦</span>
+            <span class="text-muted">￦<%= op5%></span>
           </li>
           <li class="list-group-item d-flex justify-content-between lh-condensed">
             <div class="text-muted">
               <h6 class="my-0">지방소득세</h6>
-              <small class="text-muted"><%= salary_option.op5%>×0.1%</small>
+              <small class="text-muted">￦<%= salary_option.op5.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',')%>×0.1%</small>
             </div>
-            <span class="text-muted"><%= Math.floor(salary_option.op6)%>￦</span>
+            <span class="text-muted">￦<%= op6%></span>
           </li>
-          <% let opTotal = salary_option.op1+salary_option.op2+salary_option.op3+salary_option.op4+salary_option.op5+salary_option.op6 %>
           <li class="list-group-item d-flex justify-content-between">
             <span>공제액 합계</span>
-            <strong><%= Math.floor(opTotal)%>￦</strong>
+            <strong>￦<%= opTotal %></strong>
           </li>
           <li class="list-group-item d-flex justify-content-between">
             <span>예상 실수령액(월)</span>
-            <strong><%= Math.floor(salary_month - opTotal)%>￦</strong>
+            <strong>￦<%= salary%></strong>
           </li>
         </ul>
         </div>

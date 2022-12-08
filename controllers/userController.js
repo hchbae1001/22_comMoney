@@ -167,7 +167,7 @@ async function getSalary(req,res){
             case '인사':
                 salary_month =  3000000;
                 salary_char = '3,000,000'
-                op5 = 84,850
+                op5 = 84850
                 break;
             case '부장':
                 salary_month =  6000000;
@@ -201,12 +201,12 @@ async function getSalary(req,res){
         op4 = salary_month * 0.009
         op6 = op5 * 0.1
         let salary_option = {
-            'op1':op1,
-            'op2':op2,
-            'op3':op3,
-            'op4':op4,
-            'op5':op5,
-            'op6':op6
+            'op1':Math.floor(op1),
+            'op2':Math.floor(op2),
+            'op3':Math.floor(op3),
+            'op4':Math.floor(op4),
+            'op5':Math.floor(op5),
+            'op6':Math.floor(op6)
         };
         console.log(salary_option);
         return res.render('user/userSalary', { user:user, salary_month:salary_month,salary_year:salary_year, salary_char:salary_char,salary_option:salary_option});
