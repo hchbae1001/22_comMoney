@@ -1,0 +1,26 @@
+<nav aria-label="Page navigation">
+    <ul class="pagination  justify-content-center">
+      <li class="page-item">
+        <a class="page-link" href="?searchText=<%= searchText%>&page=1" aria-label="Previous">
+          <span aria-hidden="true">&laquo; First</span>
+        </a>
+      </li>
+      <% let lastPage = Math.ceil(count/limit)%>
+      <% %>
+      <% for(let page = 1 ; page <= lastPage; page++){ %>
+        <% if(pageNum == page){ %>
+            <li class="page-item active">
+        <% }else{ %>
+            <li class="page-item">
+        <% } %>
+            <a href="?searchText=<%= searchText%>&page=<%= page%>" class="page-link"><%= page%></a>
+        </li>
+      <% } %>
+      <li class="page-item">
+        
+        <a class="page-link disabled" href="?searchText=<%= searchText%>&page=<%= lastPage%>" aria-label="Next">
+          <span aria-hidden="true">Last &raquo;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>

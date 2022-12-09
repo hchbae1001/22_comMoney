@@ -1,10 +1,21 @@
 let models = require('../models');
 const { Op } = require('sequelize');
 
-async function getUsers(searchText){
+async function getUsers(searchText,offset,limit){
     let search = '%'+searchText+'%'
     try{
+        // let data = await models.user.findAndCountAll({
+        //     where:{
+        //         name:{
+        //             [Op.like]: search
+        //         }
+        //     }
+        // });
         let data = await models.user.findAndCountAll({
+            //학번순으로 오름차순 정렬
+            offset: offset,
+            limit: limit,
+            // order:[['number','asc']],
             where:{
                 name:{
                     [Op.like]: search

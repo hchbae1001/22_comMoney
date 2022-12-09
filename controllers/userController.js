@@ -64,15 +64,20 @@ async function getUser(req,res){
 }
 
 async function getUsers(req,res){
-    let {searchText} = req.query;
+    let {searchText,page} = req.query;
     if(!searchText){
         searchText='';
     }
+    if(page == undefined){page = 1;}
+    let limit = 1;
+    let offset = 0 + (page - 1) * limit;
+
+    console.log(page);
     let user = await getUserInfo(req);
     try{
         if(user.position == "인사" || user.position == "사장"){
-            let data = await userService.getUsers(searchText);
-            res.render('user/userList',{user:user,data:data.rows, count:data.count});
+            let data = await userService.getUsers(searchText,offset,limit);
+            res.render('user/userList',{user:user,data:data.rows, count:data.count, pageNum:page, limit:limit, searchText:searchText});
         }else{
             return res.redirect('/');
         }

@@ -30,25 +30,23 @@
         center;">
                         <thead>
                             <tr>
-                                <th>부서</th>
-                                <th>직급</th>
-                                <th>이메일</th>
-                                <th>이름</th>
-                                <th>닉네임</th>
-                                <th>전화번호</th>
-                                <th>생성일</th>
+                                <th style="width: 5%;">부서</th>
+                                <th style="width: 5%;">직급</th>
+                                <th style="width: 20%;">이메일</th>
+                                <th style="width: 10%;">이름</th>
+                                <th style="width: 10%;">닉네임</th>
+                                <th style="width: 20%;">전화번호</th>
+                                <th style="width: 30%;">생성일</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <% for(let i = 0;
-        i < data.length; i++){ %>
+                            <% for(let i = 0 ; i < data.length ; i++){ %>
                                 <tr>
                                     <td><%= data[i].dept%></td>
                                     <td><%= data[i].position%></td>
                                     <td><%= data[i].email%></td>
                                     <td>
-                                        <a href="/user/<%=
-        data[i].id%>"><%= data[i].name%>
+                                        <a href="/user/<%= data[i].id%>"><%= data[i].name%>
                                         </a>
                                     </td>
                                     <td><%= data[i].nickName%></td>
@@ -61,7 +59,7 @@
                 </div>
             </div>
         </div>
-
+    <%-include('../main/pagination')%>
     </div>
     <%-include('../main/footer')%>
     <script>
