@@ -241,6 +241,29 @@ async function signTest(req,res){
     return res.redirect('/');
 }
 
+async function getuserAjax(req,res){
+    let {searchText,page} = req.query;
+    if(!searchText){
+        searchText='';
+    }
+    if(page == undefined){page = 1;}
+    let limit = 1;
+    let offset = 0 + (page - 1) * limit;
+    try{
+        let data = await userService.getUsers(searchText,limit,offset);
+        var dataInfo ={
+            method: 'POST',
+            body : JSON.stringify(data),
+            headers :{
+                'Content-Type' : 'application/json'
+            }
+        };
+        res.json(data);
+    }catch(err){
+        console.log(err);
+    }
+}
+
 async function verifyTest(req,res){
     let token = req.cookies.accessToken;
     let data = jwt.verify(token,secretKey);
@@ -259,5 +282,6 @@ module.exports={
     insertUser:insertUser,
     updateUser:updateUser,
     deleteUser:deleteUser,
-    getSalary:getSalary
+    getSalary:getSalary,
+    getuserAjax:getuserAjax
 }

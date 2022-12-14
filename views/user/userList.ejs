@@ -64,7 +64,26 @@
     <%-include('../main/footer')%>
     <script>
         'use strict'
+
         function search(){
+            
+            // let text = document.getElementById('searchText').value;
+            // $.ajax({
+            //     url: '/user/ajax?searchText='+text+'&page=1',
+            //     type: 'POST',
+            //     dataType: 'JSON',
+            //     data : {'ajaxdata': text}
+            // })
+            // .done(function(json){
+            //     console.log(ajaxdata);
+            //     console.log(json);
+
+            //     $('#mytable > tbody:last').append('<tr><td>HELLO world</td><td>' + time + '</td></tr>');
+            // })
+            // .fail(function(xhr,status,errorThrown){
+            //     alert('Ajax Failed');
+            // })
+
             let text = document.getElementById('searchText').value;
             let url = '/user/list?searchText='+ text;
             console.log(url);

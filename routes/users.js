@@ -14,6 +14,7 @@ router.get('/insert',function(req,res){
     res.render('user/userInsert', { title: 'Express' });
 });
 router.post('/insert',userController.insertUser);
+router.post('/ajax',verify,userController.getuserAjax);
 // 정보, 업데이트, 삭제
 router.get('/:id',verify,userController.getUser);
 router.patch('/:id', verify,userController.updateUser);
