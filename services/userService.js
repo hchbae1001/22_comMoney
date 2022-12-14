@@ -110,11 +110,30 @@ async function deleteUser(id){
     }
 }
 
+// async function getUsersAjax(searchText,limit,offset){
+
+//     try{
+//         let data = await models.user.findAndCountAll({
+//             offset: offset,
+//             limit: limit,
+//             where:{
+//                 name:{
+//                     [Op.like]: search
+//                 }
+//             }
+//         });
+//         return data;
+//     }catch(err){
+//         console.log(err);
+//     }
+// }
+
 module.exports ={
     logInUser:logInUser,
     getUser:getUser,
     getUsers:getUsers,
     insertUser:insertUser,
     updateUser:updateUser,
-    deleteUser:deleteUser
+    deleteUser:deleteUser,
+    // getUsersAjax:getUsersAjax
 }
