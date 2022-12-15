@@ -9,11 +9,12 @@ module.exports = function(sequelize, DataTypes) {
     },
     email: {
       type: DataTypes.CHAR(30),
-      allowNull: true
+      allowNull: false,
+      unique: true
     },
     name: {
       type: DataTypes.CHAR(20),
-      allowNull: true
+      allowNull: false
     },
     nickName: {
       type: DataTypes.CHAR(20),
@@ -21,7 +22,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     password: {
       type: DataTypes.CHAR(255),
-      allowNull: true
+      allowNull: false
     },
     phone: {
       type: DataTypes.CHAR(30),

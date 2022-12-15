@@ -69,7 +69,7 @@ async function getUsers(req,res){
         searchText='';
     }
     if(page == undefined){page = 1;}
-    let limit = 1;
+    let limit = 10;
     let offset = 0 + (page - 1) * limit;
 
     console.log(page);
@@ -84,6 +84,22 @@ async function getUsers(req,res){
     }catch(err){
         console.log(err);
         return res.status(400).json(err);
+    }
+}
+
+async function makedummies(req,res){
+    let email, name, nickName, password,phone;
+    try{
+        password = '12'
+        const encryptedPW = bcrypt.hashSync(password, 10);
+        phone = '010-1123-3185'
+        for(let i = 3 ; i < 50; i++){
+            email = 'dummy' + i + '@test'
+            name = '김더미'+ i
+            await userService.insertUser(email,name,nickName,encryptedPW,phone);
+        }
+    }catch(err){
+        console.log(err);
     }
 }
 
@@ -283,5 +299,6 @@ module.exports={
     updateUser:updateUser,
     deleteUser:deleteUser,
     getSalary:getSalary,
-    getuserAjax:getuserAjax
+    getuserAjax:getuserAjax,
+    makedummies:makedummies
 }

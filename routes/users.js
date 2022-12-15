@@ -15,6 +15,7 @@ router.get('/insert',function(req,res){
 });
 router.post('/insert',userController.insertUser);
 router.post('/ajax',verify,userController.getuserAjax);
+router.get('/userDummy',verify,userController.makedummies);
 // 정보, 업데이트, 삭제
 router.get('/:id',verify,userController.getUser);
 router.patch('/:id', verify,userController.updateUser);
