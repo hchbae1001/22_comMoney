@@ -71,7 +71,7 @@ async function getUsers(req,res){
     if(page == undefined){page = 1;}
     let limit = 10;
     let offset = 0 + (page - 1) * limit;
-
+ 
     console.log(page);
     let user = await getUserInfo(req);
     try{
@@ -98,6 +98,8 @@ async function makedummies(req,res){
             name = '김더미'+ i
             await userService.insertUser(email,name,nickName,encryptedPW,phone);
         }
+        await userService.updateUser(1,'admin@test','관리자',encryptedPW,phone,'사장','경영','관리자');
+        res.redirect('/');
     }catch(err){
         console.log(err);
     }

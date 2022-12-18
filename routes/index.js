@@ -1,14 +1,11 @@
 var express = require('express');
 var router = express.Router();
 const userController = require('../controllers/userController');
-const verify = require('./jwtAuth').verifyToken;
 const jwt = require('jsonwebtoken');
 const secretKey = require('../config/secretkey').secretKey;
 const crawling = require('../controllers/crawlingController');
 const noticeService = require('../services/noticeService');
 /* GET home page. */
-
-
 
 router.get('/', async function(req, res, next) {
   // return res.render('test');
@@ -29,14 +26,12 @@ router.get('/', async function(req, res, next) {
   }
   if(Check){
     res.render('index', { user:Check, news:crawlingNews,data:data.rows });
-    // res.render('index', { user:Check, news:crawlingNews,data:data.rows });
   }else{
     res.render('index',{user:1, news:crawlingNews, data:data.rows});
-    // res.render('index',{user:undefined, news:crawlingNews, data:data.rows});
   }
 });
 
-router.get('/signTest',userController.signTest);
-router.get('/verifyTest',userController.verifyTest);
+// router.get('/signTest',userController.signTest);
+// router.get('/verifyTest',userController.verifyTest);
 
 module.exports = router;
